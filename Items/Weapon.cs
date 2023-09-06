@@ -1,4 +1,5 @@
-﻿using Items;
+﻿using Collections;
+using Items;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
