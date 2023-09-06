@@ -1,5 +1,6 @@
 ﻿using Items;
 using Items.Potions;
+using Misc;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -110,12 +111,12 @@ namespace Gui
                 }
                 else
                 {
-                    SceneMaster.instance.ShowMessage(Language.GetText(Language.Text.Shop_MessageError), Language.GetText(Language.Text.Shop_MessageNoMoney), SceneMaster.MessageSFX.Error);
+                    SceneMaster.instance.ShowMessage(Language.GetText(Language.Text.Shop_MessageError), Language.GetText(Language.Text.Shop_MessageNoMoney), SceneMaster.MessageSfx.Error);
                 }
             }
             else
             {
-                SceneMaster.instance.ShowConfirmation(Language.GetText(Language.Text.Shop_MessageNotice), Language.GetText(Language.Text.Shop_BuyConfirmation), BuyWithGems, null, SceneMaster.MessageSFX.Notice);
+                SceneMaster.instance.ShowConfirmation(Language.GetText(Language.Text.Shop_MessageNotice), Language.GetText(Language.Text.Shop_BuyConfirmation), BuyWithGems, null, SceneMaster.MessageSfx.Notice);
             }
 
             return;
@@ -144,7 +145,7 @@ namespace Gui
                 }
                 else
                 {
-                    SceneMaster.instance.ShowMessage(Language.GetText(Language.Text.Shop_MessageError), Language.GetText(Language.Text.Shop_MessageNoMoney), SceneMaster.MessageSFX.Error);
+                    SceneMaster.instance.ShowMessage(Language.GetText(Language.Text.Shop_MessageError), Language.GetText(Language.Text.Shop_MessageNoMoney), SceneMaster.MessageSfx.Error);
                 }
             }
         }

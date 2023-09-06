@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
+using Gui;
+using Items;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using Vault;
 
 public class Collection : Window
 {
@@ -91,9 +94,9 @@ public class Collection : Window
 
     public void InstantiateCollectibles()
     {
-        List<Collectible.Collectible_Data> orbs = CollectionPrefs.GetOrbsCollection();
+        List<Collectible.CollectibleData> orbs = CollectionPrefs.GetOrbsCollection();
         int counter = 0;
-        foreach (Collectible.Collectible_Data orb in orbs)
+        foreach (Collectible.CollectibleData orb in orbs)
         {
             //Instantiates the zone
             ItemZone zone = Instantiate(prefabOrbs, itemsParent).GetComponent<ItemZone>();
@@ -112,9 +115,9 @@ public class Collection : Window
 
     public void InstantiateMonsters()
     {
-        List<Monsters.Monster_Data> monsters = CollectionPrefs.GetMonstersCollection();
+        List<Monsters.MonsterData> monsters = CollectionPrefs.GetMonstersCollection();
         int counter = 0;
-        foreach (Monsters.Monster_Data monster in monsters)
+        foreach (Monsters.MonsterData monster in monsters)
         {
             //Instantiates the zone
             ItemZone zone = Instantiate(prefabMonsters, itemsParent).GetComponent<ItemZone>();

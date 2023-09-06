@@ -1,14 +1,17 @@
-﻿public class WoodEnemy : Enemy
+﻿namespace Enemies
 {
-    protected override void InitializeCollectibles()
+    public class WoodEnemy : Enemy
     {
-        collectibles.Add(Collectibles.GetData(Collectibles.CollectibleName.WoodOrbMini));
-        collectibles.Add(Collectibles.GetData(Collectibles.CollectibleName.WoodOrb));
-        collectibles.Add(Collectibles.GetData(Collectibles.CollectibleName.WoodOrbBig));
-    }
+        protected override void InitializeCollectibles()
+        {
+            collectibles.Add(Collectibles.GetData(Collectibles.CollectibleName.WoodOrbMini));
+            collectibles.Add(Collectibles.GetData(Collectibles.CollectibleName.WoodOrb));
+            collectibles.Add(Collectibles.GetData(Collectibles.CollectibleName.WoodOrbBig));
+        }
 
-    protected override void AchievementCounterPlus()
-    {
-        PlayerPrefs2.IncreaseAchievementProgress(Achievements.AchievementID(Achievements.AchievementName.WoodSlayerI));
+        protected override void AchievementCounterPlus()
+        {
+            PlayerPrefs2.IncreaseAchievementProgress(Achievements.Achievements.AchievementID(Achievements.Achievements.AchievementName.WoodSlayerI));
+        }
     }
 }

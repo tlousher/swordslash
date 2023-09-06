@@ -1,4 +1,5 @@
-﻿using Items;
+﻿using Gui;
+using Items;
 using Items.Potions;
 using UnityEngine;
 using Vault;
@@ -22,7 +23,7 @@ public static class PlayerPrefs2
         set
         {
             PlayerPrefs.SetInt("Coins", value);
-            SetAchievementProgress(Achievements.AchievementID(Achievements.AchievementName.BankerI), Coins);
+            SetAchievementProgress(Achievements.Achievements.AchievementID(Achievements.Achievements.AchievementName.BankerI), Coins);
         }
     }
 
@@ -146,7 +147,7 @@ public static class PlayerPrefs2
     public static void SetTimePlayed(int value)
     {
         PlayerPrefs.SetInt("TimePlayed", GetTimePlayed() + value);
-        SetAchievementProgress(Achievements.AchievementID(Achievements.AchievementName.TimeMasterI), GetTimePlayed() / 3600);
+        SetAchievementProgress(Achievements.Achievements.AchievementID(Achievements.Achievements.AchievementName.TimeMasterI), GetTimePlayed() / 3600);
     }
     #endregion
 

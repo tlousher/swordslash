@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Gui;
 using TMPro;
 using UnityEngine;
 
@@ -13,7 +14,7 @@ public class AchievementsWindow : Window
     {
         base.Start();
         title.text = Language.GetText(Language.Text.Achievement_Title);
-        List<Achievement.Achievement_Data> achievementsList = Achievements.GetAchievements();
+        List<Achievement.Achievement_Data> achievementsList = Achievements.Achievements.GetAchievements();
 
         int counter = 0;
         foreach (Achievement.Achievement_Data achievementData in achievementsList)

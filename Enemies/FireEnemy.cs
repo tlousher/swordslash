@@ -1,21 +1,23 @@
-﻿using System.Collections;
-using Misc;
+﻿using Misc;
 using UnityEngine;
 
-public class FireEnemy : Enemy
+namespace Enemies
 {
-    [Header("Special ability")]
-    public int totalFireDamage;
-    public GameObject fireScreen;
-
-    public override void ExplodeSpecial()
+    public class FireEnemy : Enemy
     {
-        GameObject newScreen = Instantiate(fireScreen, GameManager.instance.HUD.transform);
-        newScreen.GetComponent<FireScreen>().fireDamage = totalFireDamage;
-    }
+        [Header("Special ability")]
+        public int totalFireDamage;
+        public GameObject fireScreen;
 
-    protected override void AchievementCounterPlus()
-    {
-        PlayerPrefs2.IncreaseAchievementProgress(Achievements.AchievementID(Achievements.AchievementName.FireSlayerI));
+        protected override void ExplodeSpecial()
+        {
+            var newScreen = Instantiate(fireScreen, GameManager.instance.HUD.transform);
+            newScreen.GetComponent<FireScreen>().fireDamage = totalFireDamage;
+        }
+
+        protected override void AchievementCounterPlus()
+        {
+            PlayerPrefs2.IncreaseAchievementProgress(Achievements.Achievements.AchievementID(Achievements.Achievements.AchievementName.FireSlayerI));
+        }
     }
 }

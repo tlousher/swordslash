@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using Gui;
+using Items;
 using Items.Potions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
+using Vault;
 
 namespace Misc
 {
@@ -39,8 +42,8 @@ namespace Misc
         public Sprite heartFull;
         public Sprite heartEmpty;
 
-        public Queue<Collectible.Collectible_Data> collectibles;
-        public List<Monsters.Monster_Data> newMonsters;
+        public Queue<Collectible.CollectibleData> collectibles;
+        public List<Monsters.MonsterData> newMonsters;
         [HideInInspector]
         public CollectiblesStacks collectiblesStacks;
 
@@ -52,12 +55,12 @@ namespace Misc
         {
             get
             {
-                switch (SceneMaster.level_Data.playmode)
+                switch (SceneMaster.levelData.playmode)
                 {
                     case PlayMode.Horde:
-                        return Mathf.FloorToInt(3f / SceneMaster.level_Data.mision * instance.monstersKilled);
+                        return Mathf.FloorToInt(3f / SceneMaster.levelData.mision * instance.monstersKilled);
                     case PlayMode.Time:
-                        return Mathf.FloorToInt(3f / SceneMaster.level_Data.mision * instance.victoryTime);
+                        return Mathf.FloorToInt(3f / SceneMaster.levelData.mision * instance.victoryTime);
                     case PlayMode.Hunt:
                         return Mathf.FloorToInt(3f / PlayerPrefs2.PlayerMaxHealth * Player.instance.healthPoints);
                     default:
@@ -74,31 +77,43 @@ namespace Misc
             }
             instance = this;
             gameOver = false;
-            collectibles = new Queue<Collectible.Collectible_Data>();
+            collectibles = new Queue<Collectible.CollectibleData>();
 
             //Carga los puntos de vida segun la vida del jugador
             LoadLifePoints();
 
             //Creates the spawner set and enviroment for the level
-            Instantiate(Resources.Load<GameObject>($"Level/SpawnerSets/SpawnerSet_{SceneMaster.LevelName}"));
-            background.sprite = Resources.Load<Sprite>($"Level/Enviroments/Background_{SceneMaster.LevelName}");
-            foreground.sprite = Resources.Load<Sprite>($"Level/Enviroments/Enviroment_{SceneMaster.LevelName}");
-
-            //Make the changes for the level depending on the playmode
-            switch (SceneMaster.level_Data.playmode)
+            try
             {
-                case PlayMode.Horde:
-                    mision.text = Language.GetText(Language.Text.PlayMode_Horde);
-                    break;
-                case PlayMode.Hunt:
-                    mision.text = Language.GetText(Language.Text.PlayMode_Hunt);
-                    break;
-                case PlayMode.Time:
-                    mision.text = Language.GetText(Language.Text.PlayMode_Time);
-                    break;
-                default:
-                    mision.text = Language.GetText(Language.Text.PlayMode_Horde);
-                    break;
+                Instantiate(Resources.Load<GameObject>($"Level/SpawnerSets/SpawnerSet_{SceneMaster.LevelName}"));
+                background.sprite = Resources.Load<Sprite>($"Level/Enviroments/Background_{SceneMaster.LevelName}");
+                foreground.sprite = Resources.Load<Sprite>($"Level/Enviroments/Enviroment_{SceneMaster.LevelName}");
+                
+
+                //Make the changes for the level depending on the playmode
+                switch (SceneMaster.levelData.playmode)
+                {
+                    case PlayMode.Horde:
+                        mision.text = Language.GetText(Language.Text.PlayMode_Horde);
+                        break;
+                    case PlayMode.Hunt:
+                        mision.text = Language.GetText(Language.Text.PlayMode_Hunt);
+                        break;
+                    case PlayMode.Time:
+                        mision.text = Language.GetText(Language.Text.PlayMode_Time);
+                        break;
+                    case PlayMode.Train:
+                        mision.text = Language.GetText(Language.Text.PlayMode_Train);
+                        break;
+                    default:
+                        mision.text = Language.GetText(Language.Text.PlayMode_Horde);
+                        break;
+                }
+            }
+            catch (NullReferenceException nullRef)
+            {
+                Debug.Log("DEVELOPER ACCESS\nNo se cargara spawners, background, foreground ni el modo de juego.\nNo se ha definido el nivel en el SceneMaster.levelData");
+                mision.text = "DEBUG";
             }
 
             //Put the equipped potions
@@ -119,7 +134,7 @@ namespace Misc
             //Check defeat
             if (Player.instance.healthPoints < 1)
             {
-                if (SceneMaster.level_Data.playmode == PlayMode.Time && StarsCount >= 1)
+                if (SceneMaster.levelData.playmode == PlayMode.Time && StarsCount >= 1)
                 {
                     victoryTime = Time.timeSinceLevelLoad;
                     Victory();
@@ -131,8 +146,9 @@ namespace Misc
             }
             else
             {
+                if (SceneMaster.levelData == null) return;
                 //Check victory based on the level playmode
-                if (VictoryMission() < SceneMaster.level_Data.mision) return;
+                if (VictoryMission() < SceneMaster.levelData.mision) return;
                 victoryTime = Time.timeSinceLevelLoad;
                 Victory();
             }
@@ -141,7 +157,8 @@ namespace Misc
         #region Mission
         private int VictoryMission()
         {
-            switch (SceneMaster.level_Data.playmode)
+            if (SceneMaster.levelData == null) return int.MaxValue;
+            switch (SceneMaster.levelData.playmode)
             {
                 case PlayMode.Horde:
                     return monstersEscaped + monstersKilled;
@@ -149,26 +166,33 @@ namespace Misc
                     return Mathf.FloorToInt(Time.timeSinceLevelLoad);
                 case PlayMode.Hunt:
                     return monstersKilled;
+                case PlayMode.Train:
                 default:
-                    return -1;
+                    return int.MaxValue;
             }
         }
 
         private void MissionUpdate()
         {
-            switch (SceneMaster.level_Data.playmode)
+            if (SceneMaster.levelData == null)
+            {
+                misionProgress.text = "--";
+                return;
+            }
+            switch (SceneMaster.levelData.playmode)
             {
                 case PlayMode.Horde:
-                    misionProgress.text = $"{SceneMaster.level_Data.mision - (monstersEscaped + monstersKilled)}";
+                    misionProgress.text = $"{SceneMaster.levelData.mision - (monstersEscaped + monstersKilled)}";
                     break;
                 case PlayMode.Time:
-                    misionProgress.text = $"{SceneMaster.level_Data.mision - Mathf.FloorToInt(Time.timeSinceLevelLoad)}s";
+                    misionProgress.text = $"{SceneMaster.levelData.mision - Mathf.FloorToInt(Time.timeSinceLevelLoad)}s";
                     break;
+                case PlayMode.Train:
                 case PlayMode.Hunt:
-                    misionProgress.text = $"{monstersKilled} / {SceneMaster.level_Data.mision}";
+                    misionProgress.text = $"{monstersKilled} / {SceneMaster.levelData.mision}";
                     break;
                 default:
-                    misionProgress.text = $"{SceneMaster.level_Data.mision - (monstersEscaped + monstersKilled)}";
+                    misionProgress.text = $"{SceneMaster.levelData.mision - (monstersEscaped + monstersKilled)}";
                     break;
             }
         } 
@@ -231,12 +255,13 @@ namespace Misc
 
         public enum PlayMode
         {
-            //Sobrevive X monstruos
+            // Sobrevive X monstruos
             Horde,
-            //Sobrevive X segundos
+            // Sobrevive X segundos
             Time,
-            //Caza X monstruos
-            Hunt
+            // Caza X monstruos
+            Hunt,
+            Train
         }
     }
 }

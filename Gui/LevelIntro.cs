@@ -1,7 +1,9 @@
 ﻿using Items.Potions;
+using Misc;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Vault;
 
 namespace Gui
 {

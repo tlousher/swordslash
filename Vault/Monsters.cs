@@ -1,72 +1,88 @@
-﻿using Items;
+﻿using Gui;
+using Items;
 using UnityEngine;
 
-public class Monsters : MonoBehaviour
+namespace Vault
 {
-    public const int Count = 4;
-    public const string ItemType = "Monster";
-
-    public enum MonsterName
+    public class Monsters : MonoBehaviour
     {
-        Water,
-        Wood,
-        Fire,
-        Slime
-    }
+        public const int Count = 5;
+        private const string ItemType = "Monster";
 
-    public static Monster_Data GetData(MonsterName monster)
-    {
-        switch (monster)
+        public enum MonsterName
         {
-            case MonsterName.Water:
-                return new Monster_Data
-                {
-                    itemID = $"{ItemType}_{MonsterName.Water}",
-                    itemName = Language.GetText(Language.Text.Monster_NameWater),
-                    description = Language.GetText(Language.Text.Monster_DescWater),
-                    ability = Language.GetText(Language.Text.Monster_AbilWater),
-                    collectionState = CollectionPrefs.CollectionState.Missing,
-                    sprite = Resources.Load<Sprite>("Collection/Monsters/WaterMonster")
-                };
-            case MonsterName.Wood:
-                return new Monster_Data
-                {
-                    itemID = $"{ItemType}_{MonsterName.Wood}",
-                    itemName = Language.GetText(Language.Text.Monster_NameWood),
-                    description = Language.GetText(Language.Text.Monster_DescWood),
-                    ability = Language.GetText(Language.Text.Monster_AbilWood),
-                    collectionState = CollectionPrefs.CollectionState.Missing,
-                    sprite = Resources.Load<Sprite>("Collection/Monsters/WoodMonster")
-                };
-            case MonsterName.Fire:
-                return new Monster_Data
-                {
-                    itemID = $"{ItemType}_{MonsterName.Fire}",
-                    itemName = Language.GetText(Language.Text.Monster_NameFire),
-                    description = Language.GetText(Language.Text.Monster_DescFire),
-                    ability = Language.GetText(Language.Text.Monster_AbilFire),
-                    collectionState = CollectionPrefs.CollectionState.Missing,
-                    sprite = Resources.Load<Sprite>("Collection/Monsters/FireMonster")
-                };
-            case MonsterName.Slime:
-                return new Monster_Data
-                {
-                    itemID = $"{ItemType}_{MonsterName.Slime}",
-                    itemName = Language.GetText(Language.Text.Monster_NameSlime),
-                    description = Language.GetText(Language.Text.Monster_DescSlime),
-                    ability = Language.GetText(Language.Text.Monster_AbilSlime),
-                    collectionState = CollectionPrefs.CollectionState.Missing,
-                    sprite = Resources.Load<Sprite>("Collection/Monsters/SlimeMonster")
-                };
-            default:
-                return null;
+            Water,
+            Wood,
+            Fire,
+            Slime,
+            Training
         }
-    }
 
-    [System.Serializable]
-    public class Monster_Data : ItemData
-    {
-        public CollectionPrefs.CollectionState collectionState;
-        public string ability;
+        public static MonsterData GetData(MonsterName monster)
+        {
+            switch (monster)
+            {
+                case MonsterName.Water:
+                    return new MonsterData
+                    {
+                        itemID = $"{ItemType}_{MonsterName.Water}",
+                        itemName = Language.GetText(Language.Text.Monster_NameWater),
+                        description = Language.GetText(Language.Text.Monster_DescWater),
+                        ability = Language.GetText(Language.Text.Monster_AbilWater),
+                        collectionState = CollectionPrefs.CollectionState.Missing,
+                        sprite = Resources.Load<Sprite>("Collection/Monsters/WaterMonster")
+                    };
+                case MonsterName.Wood:
+                    return new MonsterData
+                    {
+                        itemID = $"{ItemType}_{MonsterName.Wood}",
+                        itemName = Language.GetText(Language.Text.Monster_NameWood),
+                        description = Language.GetText(Language.Text.Monster_DescWood),
+                        ability = Language.GetText(Language.Text.Monster_AbilWood),
+                        collectionState = CollectionPrefs.CollectionState.Missing,
+                        sprite = Resources.Load<Sprite>("Collection/Monsters/WoodMonster")
+                    };
+                case MonsterName.Fire:
+                    return new MonsterData
+                    {
+                        itemID = $"{ItemType}_{MonsterName.Fire}",
+                        itemName = Language.GetText(Language.Text.Monster_NameFire),
+                        description = Language.GetText(Language.Text.Monster_DescFire),
+                        ability = Language.GetText(Language.Text.Monster_AbilFire),
+                        collectionState = CollectionPrefs.CollectionState.Missing,
+                        sprite = Resources.Load<Sprite>("Collection/Monsters/FireMonster")
+                    };
+                case MonsterName.Slime:
+                    return new MonsterData
+                    {
+                        itemID = $"{ItemType}_{MonsterName.Slime}",
+                        itemName = Language.GetText(Language.Text.Monster_NameSlime),
+                        description = Language.GetText(Language.Text.Monster_DescSlime),
+                        ability = Language.GetText(Language.Text.Monster_AbilSlime),
+                        collectionState = CollectionPrefs.CollectionState.Missing,
+                        sprite = Resources.Load<Sprite>("Collection/Monsters/SlimeMonster")
+                    };
+                case MonsterName.Training:
+                    var itemID = $"{ItemType}_{MonsterName.Training}";
+                    return new MonsterData
+                    {
+                        itemID = itemID,
+                        itemName = Language.GetText(Language.Text.Monster_NameTrainingDummy),
+                        description = Language.GetText(Language.Text.Monster_DescTrainingDummy),
+                        ability = Language.GetText(Language.Text.Monster_AbilTrainingDummy),
+                        collectionState = CollectionPrefs.GetCollectionState(itemID, CollectionPrefs.CollectionState.Missing),
+                        sprite = Resources.Load<Sprite>("Collection/Monsters/SlimeMonster")
+                    };
+                default:
+                    return null;
+            }
+        }
+
+        [System.Serializable]
+        public class MonsterData : ItemData
+        {
+            public CollectionPrefs.CollectionState collectionState;
+            public string ability;
+        }
     }
 }

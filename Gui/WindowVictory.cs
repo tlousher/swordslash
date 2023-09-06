@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using Gui;
+using Items;
 using Misc;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Vault;
 
 public class WindowVictory : Window
 {
@@ -33,18 +35,18 @@ public class WindowVictory : Window
         #endregion
         #region 2.Collectibles
         //Saves all the changes on collectibles and coins
-        Collectible.Collectible_Data[] collectibles = GameManager.instance.collectibles.ToArray();
-        foreach (Collectible.Collectible_Data collectible in collectibles)
+        Collectible.CollectibleData[] collectibles = GameManager.instance.collectibles.ToArray();
+        foreach (Collectible.CollectibleData collectible in collectibles)
         {
             PlayerPrefs2.Coins += collectible.price;
             if (collectible.collectionState == CollectionPrefs.CollectionState.Missing)
             {
                 CollectionPrefs.SetCollectionState(collectible.itemID, CollectionPrefs.CollectionState.Discovered);
-                PlayerPrefs2.IncreaseAchievementProgress(Achievements.AchievementID(Achievements.AchievementName.Gatherer));
+                PlayerPrefs2.IncreaseAchievementProgress(Achievements.Achievements.AchievementID(Achievements.Achievements.AchievementName.Gatherer));
             }
         }
         //Saves the monsters discovered on this level
-        foreach (Monsters.Monster_Data monster in GameManager.instance.newMonsters)
+        foreach (Monsters.MonsterData monster in GameManager.instance.newMonsters)
         {
             CollectionPrefs.SetCollectionState(monster.itemID, CollectionPrefs.CollectionState.Discovered);
         }
@@ -60,22 +62,22 @@ public class WindowVictory : Window
 
         if (starsCount >= 3 && PlayerPrefs2.GetLevelStars(SceneMaster.LevelName) < 3)
         {
-            switch (SceneMaster.level_Data.area)
+            switch (SceneMaster.levelData.area)
             {
                 case Map.Area.Forest:
-                    PlayerPrefs2.IncreaseAchievementProgress(Achievements.AchievementID(Achievements.AchievementName.PerfectionistI));
+                    PlayerPrefs2.IncreaseAchievementProgress(Achievements.Achievements.AchievementID(Achievements.Achievements.AchievementName.PerfectionistI));
                     break;
                 case Map.Area.Mountain:
-                    PlayerPrefs2.IncreaseAchievementProgress(Achievements.AchievementID(Achievements.AchievementName.PerfectionistII));
+                    PlayerPrefs2.IncreaseAchievementProgress(Achievements.Achievements.AchievementID(Achievements.Achievements.AchievementName.PerfectionistII));
                     break;
                 case Map.Area.Volcano:
-                    PlayerPrefs2.IncreaseAchievementProgress(Achievements.AchievementID(Achievements.AchievementName.PerfectionistIII));
+                    PlayerPrefs2.IncreaseAchievementProgress(Achievements.Achievements.AchievementID(Achievements.Achievements.AchievementName.PerfectionistIII));
                     break;
                 case Map.Area.Cavern:
-                    PlayerPrefs2.IncreaseAchievementProgress(Achievements.AchievementID(Achievements.AchievementName.PerfectionistIV));
+                    PlayerPrefs2.IncreaseAchievementProgress(Achievements.Achievements.AchievementID(Achievements.Achievements.AchievementName.PerfectionistIV));
                     break;
                 case Map.Area.Capital:
-                    PlayerPrefs2.IncreaseAchievementProgress(Achievements.AchievementID(Achievements.AchievementName.PerfectionistV));
+                    PlayerPrefs2.IncreaseAchievementProgress(Achievements.Achievements.AchievementID(Achievements.Achievements.AchievementName.PerfectionistV));
                     break;
                 default:
                     break;
@@ -91,7 +93,7 @@ public class WindowVictory : Window
 
         if (GameManager.instance.monstersKilled == 0)
         {
-            PlayerPrefs2.IncreaseAchievementProgress(Achievements.AchievementID(Achievements.AchievementName.Pacifist));
+            PlayerPrefs2.IncreaseAchievementProgress(Achievements.Achievements.AchievementID(Achievements.Achievements.AchievementName.Pacifist));
         }
     }
 
@@ -114,7 +116,7 @@ public class WindowVictory : Window
 
         while (GameManager.instance.collectibles.Count > 0)
         {
-            Collectible.Collectible_Data collectible = GameManager.instance.collectibles.Dequeue();
+            Collectible.CollectibleData collectible = GameManager.instance.collectibles.Dequeue();
             counter += collectible.price;
             coins.text = $"+{PlayerPrefs2.AddZeros(counter)}";
 
@@ -141,5 +143,5 @@ public class WindowVictory : Window
     }
     #endregion
 
-    public void NextLevel() => SceneMaster.instance.LoadLevel(Levels.GetData(SceneMaster.level_Data.nextLevel).LevelName);
+    public void NextLevel() => SceneMaster.instance.LoadLevel(Levels.GetData(SceneMaster.levelData.nextLevel).LevelName);
 }

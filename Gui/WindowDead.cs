@@ -1,4 +1,6 @@
-﻿public class WindowDead : Window
+﻿using Misc;
+
+public class WindowDead : Window
 {
     public void RestartGame()
     {

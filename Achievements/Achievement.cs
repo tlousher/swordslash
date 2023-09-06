@@ -1,4 +1,5 @@
 ﻿using Items;
+using Misc;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -44,7 +45,7 @@ public class Achievement : MonoBehaviour
     public void CollectAchivement()
     {
         //Si hay otra mision, oculto la completada y muestro la que sigue
-        if (!data.nextAchievementID.Equals(Achievements.AchievementID(Achievements.AchievementName.Final)))
+        if (!data.nextAchievementID.Equals(Achievements.Achievements.AchievementID(Achievements.Achievements.AchievementName.Final)))
         {
             PlayerPrefs2.SetAchievementDisplay(data.achievementID, false);
             PlayerPrefs2.SetAchievementDisplay(data.nextAchievementID, true);
@@ -86,22 +87,22 @@ public class Achievement : MonoBehaviour
 
         public void Complete()
         {
-            PlayerPrefs2.IncreaseAchievementProgress(Achievements.AchievementID(Achievements.AchievementName.GameLover));
+            PlayerPrefs2.IncreaseAchievementProgress(Achievements.Achievements.AchievementID(Achievements.Achievements.AchievementName.GameLover));
             PlayerPrefs2.AchievementComplete(achievementID);
-            if (rewardItemID.Equals(Achievements.CoinsReward))
+            if (rewardItemID.Equals(Achievements.Achievements.CoinsReward))
             {
                 PlayerPrefs2.Coins += rewardQuantity;
-                SceneMaster.instance.ShowMessage("Logro completado", $"Felicitaciones por completar \"{title}\", has ganado {rewardQuantity} monedas.", SceneMaster.MessageSFX.Notice);
+                SceneMaster.instance.ShowMessage("Logro completado", $"Felicitaciones por completar \"{title}\", has ganado {rewardQuantity} monedas.", SceneMaster.MessageSfx.Notice);
             }
-            else if (rewardItemID.Equals(Achievements.GemsReward))
+            else if (rewardItemID.Equals(Achievements.Achievements.GemsReward))
             {
                 PlayerPrefs2.Gems += rewardQuantity;
-                SceneMaster.instance.ShowMessage("Logro completado", $"Felicitaciones por completar \"{title}\", has ganado {rewardQuantity} gemas.", SceneMaster.MessageSFX.Notice);
+                SceneMaster.instance.ShowMessage("Logro completado", $"Felicitaciones por completar \"{title}\", has ganado {rewardQuantity} gemas.", SceneMaster.MessageSfx.Notice);
             }
             else
             {
                 PlayerPrefs2.SetItemState(rewardItemID, ItemData.ItemState.Acquired);
-                SceneMaster.instance.ShowMessage("Logro completado", $"Felicitaciones por completar \"{title}\", puedes encontrar tu nuevo equipo en la tienda.", SceneMaster.MessageSFX.Notice);
+                SceneMaster.instance.ShowMessage("Logro completado", $"Felicitaciones por completar \"{title}\", puedes encontrar tu nuevo equipo en la tienda.", SceneMaster.MessageSfx.Notice);
             }
         }
     }

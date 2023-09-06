@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Enemies;
 using Misc;
 using UnityEngine;
 
@@ -79,7 +80,7 @@ public class Spawner : MonoBehaviour
 
     }
 
-    private bool HordeMax => SceneMaster.level_Data.playmode == GameManager.PlayMode.Horde && GameManager.instance.monstersEscaped > SceneMaster.level_Data.mision;
+    private bool HordeMax => SceneMaster.levelData.playmode == GameManager.PlayMode.Horde && GameManager.instance.monstersEscaped > SceneMaster.levelData.mision;
 
     void SpawnRandom()
     {

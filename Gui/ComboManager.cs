@@ -47,7 +47,7 @@ public class ComboManager : MonoBehaviour
         Reset();
 
         //Initialize the highest achieved combo
-        achievedCombo = PlayerPrefs2.GetAchievementProgress(Achievements.AchievementID(Achievements.AchievementName.SwordsmasterI));
+        achievedCombo = PlayerPrefs2.GetAchievementProgress(Achievements.Achievements.AchievementID(Achievements.Achievements.AchievementName.SwordsmasterI));
     }
 
     public void Reset()
@@ -92,7 +92,7 @@ public class ComboManager : MonoBehaviour
             if (counter > achievedCombo)
             {
                 // Sets the new highest combo achieved
-                PlayerPrefs2.SetAchievementProgress(Achievements.AchievementID(Achievements.AchievementName.SwordsmasterI), counter);
+                PlayerPrefs2.SetAchievementProgress(Achievements.Achievements.AchievementID(Achievements.Achievements.AchievementName.SwordsmasterI), counter);
             }
 
             //Restarts the combo counter

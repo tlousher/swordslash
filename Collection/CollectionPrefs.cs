@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using Items;
 using UnityEngine;
+using Vault;
 
 public static class CollectionPrefs
 {
@@ -50,13 +52,13 @@ public static class CollectionPrefs
         return swordsCollection;
     }
 
-    public static List<Collectible.Collectible_Data> GetOrbsCollection()
+    public static List<Collectible.CollectibleData> GetOrbsCollection()
     {
-        List<Collectible.Collectible_Data> orbsCollection = new List<Collectible.Collectible_Data>();
+        List<Collectible.CollectibleData> orbsCollection = new List<Collectible.CollectibleData>();
 
         for (int i = 0; i < Collectibles.Count; i++)
         {
-            Collectible.Collectible_Data orb = Collectibles.GetData((Collectibles.CollectibleName)i);
+            Collectible.CollectibleData orb = Collectibles.GetData((Collectibles.CollectibleName)i);
             orb.collectionState = GetCollectionState(orb.itemID, orb.collectionState);
             orbsCollection.Add(orb);
         }
@@ -64,13 +66,13 @@ public static class CollectionPrefs
         return orbsCollection;
     }
 
-    public static List<Monsters.Monster_Data> GetMonstersCollection()
+    public static List<Monsters.MonsterData> GetMonstersCollection()
     {
-        List<Monsters.Monster_Data> monstersCollection = new List<Monsters.Monster_Data>();
+        List<Monsters.MonsterData> monstersCollection = new List<Monsters.MonsterData>();
 
         for (int i = 0; i < Monsters.Count; i++)
         {
-            Monsters.Monster_Data monster = Monsters.GetData((Monsters.MonsterName)i);
+            Monsters.MonsterData monster = Monsters.GetData((Monsters.MonsterName)i);
             monster.collectionState = GetCollectionState(monster.itemID, monster.collectionState);
             monstersCollection.Add(monster);
         }

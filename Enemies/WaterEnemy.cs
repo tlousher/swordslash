@@ -1,14 +1,17 @@
-﻿public class WaterEnemy : Enemy
+﻿namespace Enemies
 {
-    protected override void InitializeCollectibles()
+    public class WaterEnemy : Enemy
     {
-        collectibles.Add(Collectibles.GetData(Collectibles.CollectibleName.WaterOrbMini));
-        collectibles.Add(Collectibles.GetData(Collectibles.CollectibleName.WaterOrb));
-        collectibles.Add(Collectibles.GetData(Collectibles.CollectibleName.WaterOrbBig));
-    }
+        protected override void InitializeCollectibles()
+        {
+            collectibles.Add(Collectibles.GetData(Collectibles.CollectibleName.WaterOrbMini));
+            collectibles.Add(Collectibles.GetData(Collectibles.CollectibleName.WaterOrb));
+            collectibles.Add(Collectibles.GetData(Collectibles.CollectibleName.WaterOrbBig));
+        }
 
-    protected override void AchievementCounterPlus()
-    {
-        PlayerPrefs2.IncreaseAchievementProgress(Achievements.AchievementID(Achievements.AchievementName.WaterSlayerI));
+        protected override void AchievementCounterPlus()
+        {
+            PlayerPrefs2.IncreaseAchievementProgress(Achievements.Achievements.AchievementID(Achievements.Achievements.AchievementName.WaterSlayerI));
+        }
     }
 }

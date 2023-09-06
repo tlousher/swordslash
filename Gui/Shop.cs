@@ -1,5 +1,7 @@
 ﻿using System.Collections;
+using Gui;
 using Items;
+using Misc;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -452,11 +454,11 @@ public class Shop : MonoBehaviour
                 }
                 else
                 {
-                    SceneMaster.instance.ShowMessage(Language.GetText(Language.Text.Shop_MessageWarning), Language.GetText(Language.Text.Shop_MessageNoSword), SceneMaster.MessageSFX.Error);
+                    SceneMaster.instance.ShowMessage(Language.GetText(Language.Text.Shop_MessageWarning), Language.GetText(Language.Text.Shop_MessageNoSword), SceneMaster.MessageSfx.Error);
                 }
                 break;
             case ItemData.ItemState.Locked:
-                SceneMaster.instance.ShowMessage(Language.GetText(Language.Text.Shop_MessageError), Language.GetText(Language.Text.Shop_MessageLockedItem), SceneMaster.MessageSFX.Other, lockedClip);
+                SceneMaster.instance.ShowMessage(Language.GetText(Language.Text.Shop_MessageError), Language.GetText(Language.Text.Shop_MessageLockedItem), SceneMaster.MessageSfx.Other, lockedClip);
                 break;
         }
     }
@@ -480,11 +482,11 @@ public class Shop : MonoBehaviour
                 }
                 else
                 {
-                    SceneMaster.instance.ShowMessage(Language.GetText(Language.Text.Shop_MessageWarning), Language.GetText(Language.Text.Shop_MessageNoShirt), SceneMaster.MessageSFX.Error);
+                    SceneMaster.instance.ShowMessage(Language.GetText(Language.Text.Shop_MessageWarning), Language.GetText(Language.Text.Shop_MessageNoShirt), SceneMaster.MessageSfx.Error);
                 }
                 break;
             case ItemData.ItemState.Locked:
-                SceneMaster.instance.ShowMessage(Language.GetText(Language.Text.Shop_MessageError), Language.GetText(Language.Text.Shop_MessageLockedItem), SceneMaster.MessageSFX.Other, lockedClip);
+                SceneMaster.instance.ShowMessage(Language.GetText(Language.Text.Shop_MessageError), Language.GetText(Language.Text.Shop_MessageLockedItem), SceneMaster.MessageSfx.Other, lockedClip);
                 break;
         }
     }
@@ -505,7 +507,7 @@ public class Shop : MonoBehaviour
                 EquipedSuccess(removeClip);
                 break;
             case ItemData.ItemState.Locked:
-                SceneMaster.instance.ShowMessage(Language.GetText(Language.Text.Shop_MessageError), Language.GetText(Language.Text.Shop_MessageLockedItem), SceneMaster.MessageSFX.Other, lockedClip);
+                SceneMaster.instance.ShowMessage(Language.GetText(Language.Text.Shop_MessageError), Language.GetText(Language.Text.Shop_MessageLockedItem), SceneMaster.MessageSfx.Other, lockedClip);
                 break;
         }
     }
@@ -529,11 +531,11 @@ public class Shop : MonoBehaviour
                 }
                 else
                 {
-                    SceneMaster.instance.ShowMessage(Language.GetText(Language.Text.Shop_MessageWarning), Language.GetText(Language.Text.Shop_MessageNoGreave), SceneMaster.MessageSFX.Error);
+                    SceneMaster.instance.ShowMessage(Language.GetText(Language.Text.Shop_MessageWarning), Language.GetText(Language.Text.Shop_MessageNoGreave), SceneMaster.MessageSfx.Error);
                 }
                 break;
             case ItemData.ItemState.Locked:
-                SceneMaster.instance.ShowMessage(Language.GetText(Language.Text.Shop_MessageError), Language.GetText(Language.Text.Shop_MessageLockedItem), SceneMaster.MessageSFX.Other, lockedClip);
+                SceneMaster.instance.ShowMessage(Language.GetText(Language.Text.Shop_MessageError), Language.GetText(Language.Text.Shop_MessageLockedItem), SceneMaster.MessageSfx.Other, lockedClip);
                 break;
         }
     }
@@ -554,7 +556,7 @@ public class Shop : MonoBehaviour
                 EquipedSuccess(removeClip);
                 break;
             case ItemData.ItemState.Locked:
-                SceneMaster.instance.ShowMessage(Language.GetText(Language.Text.Shop_MessageError), Language.GetText(Language.Text.Shop_MessageLockedItem), SceneMaster.MessageSFX.Other, lockedClip);
+                SceneMaster.instance.ShowMessage(Language.GetText(Language.Text.Shop_MessageError), Language.GetText(Language.Text.Shop_MessageLockedItem), SceneMaster.MessageSfx.Other, lockedClip);
                 break;
         }
     }
@@ -578,11 +580,11 @@ public class Shop : MonoBehaviour
                 }
                 else
                 {
-                    SceneMaster.instance.ShowMessage(Language.GetText(Language.Text.Shop_MessageWarning), Language.GetText(Language.Text.Shop_MessageNoBoots), SceneMaster.MessageSFX.Error);
+                    SceneMaster.instance.ShowMessage(Language.GetText(Language.Text.Shop_MessageWarning), Language.GetText(Language.Text.Shop_MessageNoBoots), SceneMaster.MessageSfx.Error);
                 }
                 break;
             case ItemData.ItemState.Locked:
-                SceneMaster.instance.ShowMessage(Language.GetText(Language.Text.Shop_MessageError), Language.GetText(Language.Text.Shop_MessageLockedItem), SceneMaster.MessageSFX.Other, lockedClip);
+                SceneMaster.instance.ShowMessage(Language.GetText(Language.Text.Shop_MessageError), Language.GetText(Language.Text.Shop_MessageLockedItem), SceneMaster.MessageSfx.Other, lockedClip);
                 break;
         }
     }
@@ -598,11 +600,11 @@ public class Shop : MonoBehaviour
             ShopFrame.selectedFrame.UpdateFrame();
             SelectItem(selectedItem);
             GetComponent<AudioSource>().PlayOneShot(purchaseClip);
-            PlayerPrefs2.IncreaseAchievementProgress(Achievements.AchievementID(Achievements.AchievementName.CollectionistI));
+            PlayerPrefs2.IncreaseAchievementProgress(Achievements.Achievements.AchievementID(Achievements.Achievements.AchievementName.CollectionistI));
         }
         else
         {
-            SceneMaster.instance.ShowMessage(Language.GetText(Language.Text.Shop_MessageError), Language.GetText(Language.Text.Shop_MessageNoMoney), SceneMaster.MessageSFX.Error);
+            SceneMaster.instance.ShowMessage(Language.GetText(Language.Text.Shop_MessageError), Language.GetText(Language.Text.Shop_MessageNoMoney), SceneMaster.MessageSfx.Error);
         }
     }
 
