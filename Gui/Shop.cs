@@ -81,20 +81,20 @@ public class Shop : MonoBehaviour
     [ContextMenu("Unlock Weapons")]
     public void UnlockWeapons()
     {
-        PlayerPrefs2.SetItemState(Swords.GetData(Swords.SwordName.RebanadoraSlimes).itemID, ItemData.ItemState.Aquired);
-        PlayerPrefs2.SetItemState(Swords.GetData(Swords.SwordName.Hidroblade).itemID, ItemData.ItemState.Aquired);
-        PlayerPrefs2.SetItemState(Swords.GetData(Swords.SwordName.Inferno).itemID, ItemData.ItemState.Aquired);
-        PlayerPrefs2.SetItemState(Swords.GetData(Swords.SwordName.EspadonBosque).itemID, ItemData.ItemState.Aquired);
+        PlayerPrefs2.SetItemState(Swords.GetData(Swords.SwordName.RebanadoraSlimes).itemID, ItemData.ItemState.Acquired);
+        PlayerPrefs2.SetItemState(Swords.GetData(Swords.SwordName.Hidroblade).itemID, ItemData.ItemState.Acquired);
+        PlayerPrefs2.SetItemState(Swords.GetData(Swords.SwordName.Inferno).itemID, ItemData.ItemState.Acquired);
+        PlayerPrefs2.SetItemState(Swords.GetData(Swords.SwordName.EspadonBosque).itemID, ItemData.ItemState.Acquired);
 
-        PlayerPrefs2.SetItemState(Helmets.GetData(Helmets.HelmetName.RebanadorSlimes).itemID, ItemData.ItemState.Aquired);
-        PlayerPrefs2.SetItemState(Helmets.GetData(Helmets.HelmetName.Hidro).itemID, ItemData.ItemState.Aquired);
-        PlayerPrefs2.SetItemState(Helmets.GetData(Helmets.HelmetName.Inferno).itemID, ItemData.ItemState.Aquired);
-        PlayerPrefs2.SetItemState(Helmets.GetData(Helmets.HelmetName.Bosque).itemID, ItemData.ItemState.Aquired);
+        PlayerPrefs2.SetItemState(Helmets.GetData(Helmets.HelmetName.RebanadorSlimes).itemID, ItemData.ItemState.Acquired);
+        PlayerPrefs2.SetItemState(Helmets.GetData(Helmets.HelmetName.Hidro).itemID, ItemData.ItemState.Acquired);
+        PlayerPrefs2.SetItemState(Helmets.GetData(Helmets.HelmetName.Inferno).itemID, ItemData.ItemState.Acquired);
+        PlayerPrefs2.SetItemState(Helmets.GetData(Helmets.HelmetName.Bosque).itemID, ItemData.ItemState.Acquired);
 
-        PlayerPrefs2.SetItemState(Chestplates.GetData(Chestplates.ChestplateName.RebanadorSlimes).itemID, ItemData.ItemState.Aquired);
-        PlayerPrefs2.SetItemState(Chestplates.GetData(Chestplates.ChestplateName.Hidro).itemID, ItemData.ItemState.Aquired);
-        PlayerPrefs2.SetItemState(Chestplates.GetData(Chestplates.ChestplateName.Inferno).itemID, ItemData.ItemState.Aquired);
-        PlayerPrefs2.SetItemState(Chestplates.GetData(Chestplates.ChestplateName.Bosque).itemID, ItemData.ItemState.Aquired);
+        PlayerPrefs2.SetItemState(Chestplates.GetData(Chestplates.ChestplateName.RebanadorSlimes).itemID, ItemData.ItemState.Acquired);
+        PlayerPrefs2.SetItemState(Chestplates.GetData(Chestplates.ChestplateName.Hidro).itemID, ItemData.ItemState.Acquired);
+        PlayerPrefs2.SetItemState(Chestplates.GetData(Chestplates.ChestplateName.Inferno).itemID, ItemData.ItemState.Acquired);
+        PlayerPrefs2.SetItemState(Chestplates.GetData(Chestplates.ChestplateName.Bosque).itemID, ItemData.ItemState.Acquired);
 
         UpdateFrames();
         Debug.Log("Objetos de mision desbloqueadas!");
@@ -440,12 +440,12 @@ public class Shop : MonoBehaviour
                 //Sets the item to be discovered
                 CollectionPrefs.SetCollectionState(weapon.itemID, CollectionPrefs.CollectionState.Discovered);
                 break;
-            case ItemData.ItemState.Aquired:
+            case ItemData.ItemState.Acquired:
                 EquipWeapon(ShopFrame.selectedFrame.item.GetComponent<Weapon>().data, PlayerPrefs2.GetEquipedSword());
                 EquipedSuccess(equipClip);
                 break;
-            case ItemData.ItemState.Equiped:
-                if (PlayerPrefs2.GetItemState(Swords.GetData(Swords.SwordName.EspadaMadera).itemID, ItemData.ItemState.Equiped) != ItemData.ItemState.Equiped)
+            case ItemData.ItemState.Equipped:
+                if (PlayerPrefs2.GetItemState(Swords.GetData(Swords.SwordName.EspadaMadera).itemID, ItemData.ItemState.Equipped) != ItemData.ItemState.Equipped)
                 {
                     EquipWeapon(Swords.GetData(Swords.SwordName.EspadaMadera), PlayerPrefs2.GetEquipedSword());
                     EquipedSuccess(removeClip);
@@ -468,12 +468,12 @@ public class Shop : MonoBehaviour
             case ItemData.ItemState.OnSale:
                 BuyItem(ShopFrame.selectedFrame.item.GetComponent<Armor>().data);
                 break;
-            case ItemData.ItemState.Aquired:
+            case ItemData.ItemState.Acquired:
                 EquipArmor(ShopFrame.selectedFrame.item.GetComponent<Armor>().data, PlayerPrefs2.GetEquipedShirt());
                 EquipedSuccess(equipClip);
                 break;
-            case ItemData.ItemState.Equiped:
-                if (PlayerPrefs2.GetItemState(Shirts.GetData(Shirts.ShirtName.Inicial).itemID, ItemData.ItemState.Equiped) != ItemData.ItemState.Equiped)
+            case ItemData.ItemState.Equipped:
+                if (PlayerPrefs2.GetItemState(Shirts.GetData(Shirts.ShirtName.Inicial).itemID, ItemData.ItemState.Equipped) != ItemData.ItemState.Equipped)
                 {
                     EquipArmor(Shirts.GetData(Shirts.ShirtName.Inicial), PlayerPrefs2.GetEquipedShirt());
                     EquipedSuccess(removeClip);
@@ -496,11 +496,11 @@ public class Shop : MonoBehaviour
             case ItemData.ItemState.OnSale:
                 BuyItem(ShopFrame.selectedFrame.item.GetComponent<Armor>().data);
                 break;
-            case ItemData.ItemState.Aquired:
+            case ItemData.ItemState.Acquired:
                 EquipArmor(ShopFrame.selectedFrame.item.GetComponent<Armor>().data, PlayerPrefs2.GetEquipedHelmet());
                 EquipedSuccess(equipClip);
                 break;
-            case ItemData.ItemState.Equiped:
+            case ItemData.ItemState.Equipped:
                 EquipArmor(null, PlayerPrefs2.GetEquipedHelmet());
                 EquipedSuccess(removeClip);
                 break;
@@ -517,12 +517,12 @@ public class Shop : MonoBehaviour
             case ItemData.ItemState.OnSale:
                 BuyItem(ShopFrame.selectedFrame.item.GetComponent<Armor>().data);
                 break;
-            case ItemData.ItemState.Aquired:
+            case ItemData.ItemState.Acquired:
                 EquipArmor(ShopFrame.selectedFrame.item.GetComponent<Armor>().data, PlayerPrefs2.GetEquipedGreave());
                 EquipedSuccess(equipClip);
                 break;
-            case ItemData.ItemState.Equiped:
-                if (PlayerPrefs2.GetItemState(Greaves.GetData(Greaves.GreaveName.Inicial).itemID, ItemData.ItemState.Equiped) != ItemData.ItemState.Equiped)
+            case ItemData.ItemState.Equipped:
+                if (PlayerPrefs2.GetItemState(Greaves.GetData(Greaves.GreaveName.Inicial).itemID, ItemData.ItemState.Equipped) != ItemData.ItemState.Equipped)
                 {
                     EquipArmor(Greaves.GetData(Greaves.GreaveName.Inicial), PlayerPrefs2.GetEquipedGreave());
                     EquipedSuccess(removeClip);
@@ -545,11 +545,11 @@ public class Shop : MonoBehaviour
             case ItemData.ItemState.OnSale:
                 BuyItem(ShopFrame.selectedFrame.item.GetComponent<Armor>().data);
                 break;
-            case ItemData.ItemState.Aquired:
+            case ItemData.ItemState.Acquired:
                 EquipArmor(ShopFrame.selectedFrame.item.GetComponent<Armor>().data, PlayerPrefs2.GetEquipedChestplate());
                 EquipedSuccess(equipClip);
                 break;
-            case ItemData.ItemState.Equiped:
+            case ItemData.ItemState.Equipped:
                 EquipArmor(null, PlayerPrefs2.GetEquipedChestplate());
                 EquipedSuccess(removeClip);
                 break;
@@ -566,12 +566,12 @@ public class Shop : MonoBehaviour
             case ItemData.ItemState.OnSale:
                 BuyItem(ShopFrame.selectedFrame.item.GetComponent<Armor>().data);
                 break;
-            case ItemData.ItemState.Aquired:
+            case ItemData.ItemState.Acquired:
                 EquipArmor(ShopFrame.selectedFrame.item.GetComponent<Armor>().data, PlayerPrefs2.GetEquipedBoots());
                 EquipedSuccess(equipClip);
                 break;
-            case ItemData.ItemState.Equiped:
-                if (PlayerPrefs2.GetItemState(Boots.GetData(Boots.BootsName.Inicial).itemID, ItemData.ItemState.Equiped) != ItemData.ItemState.Equiped)
+            case ItemData.ItemState.Equipped:
+                if (PlayerPrefs2.GetItemState(Boots.GetData(Boots.BootsName.Inicial).itemID, ItemData.ItemState.Equipped) != ItemData.ItemState.Equipped)
                 {
                     EquipArmor(Boots.GetData(Boots.BootsName.Inicial), PlayerPrefs2.GetEquipedBoots());
                     EquipedSuccess(removeClip);
@@ -594,7 +594,7 @@ public class Shop : MonoBehaviour
         {
             PlayerPrefs2.Coins -= price;
             UpdateCoinsText();
-            PlayerPrefs2.SetItemState(itemData.itemID, ItemData.ItemState.Aquired);
+            PlayerPrefs2.SetItemState(itemData.itemID, ItemData.ItemState.Acquired);
             ShopFrame.selectedFrame.UpdateFrame();
             SelectItem(selectedItem);
             GetComponent<AudioSource>().PlayOneShot(purchaseClip);
@@ -644,11 +644,11 @@ public class Shop : MonoBehaviour
     {
         if (oldWeapon != null)
         {
-            PlayerPrefs2.SetItemState(oldWeapon.itemID, ItemData.ItemState.Aquired);
+            PlayerPrefs2.SetItemState(oldWeapon.itemID, ItemData.ItemState.Acquired);
         }
         if (newWeapon != null)
         {
-            PlayerPrefs2.SetItemState(newWeapon.itemID, ItemData.ItemState.Equiped);
+            PlayerPrefs2.SetItemState(newWeapon.itemID, ItemData.ItemState.Equipped);
         }
     }
 

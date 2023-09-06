@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,12 +26,15 @@ namespace Items.Potions
 
         public void UpdateSprite()
         {
-            if (image == null)
+            if (!image) image = GetComponent<Image>();
+            try
             {
-                Debug.LogError($"No se ha encontrado el componente Image en {gameObject.name}");
-                return;
+                image.sprite = data.sprite;
             }
-            image.sprite = data.sprite;
+            catch (MissingReferenceException missRef)
+            {
+                image.sprite = Resources.Load<Sprite>($"Items/Potions/{data.sprite.name}");
+            }
         }
 
         private void Start()
@@ -77,7 +81,7 @@ namespace Items.Potions
             public Sprite shopX5;
             public Sprite shopX10;
             public Potion_Effect effect;
-            public Potion_Effect GetEffect => effect ?? (effect = global::Potions.GetEffect(itemID));
+            public Potion_Effect GetEffect => effect ?? (effect = global::Vault.Potions.GetEffect(itemID));
 
             public int Quantity
             {

@@ -42,7 +42,7 @@ public static class Swords
                     ability = Language.GetText(Language.Text.Sword_AbilEspadaMadera),
                     power = 1,
                     price = 5,
-                    starterState = ItemData.ItemState.Equiped,
+                    starterState = ItemData.ItemState.Equipped,
                     collectionState = CollectionPrefs.CollectionState.Discovered,
                     range = 6,
                     sprite = Resources.Load<Sprite>("Items/Swords/EspadaMadera"),

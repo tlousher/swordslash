@@ -14,13 +14,7 @@ namespace Items
         public ItemState starterState;
         public Sprite sprite;
 
-        public ItemState State
-        {
-            get
-            {
-                return (ItemState)PlayerPrefs2.GetItemState(itemID, (int)starterState);
-            }
-        }
+        public ItemState State => (ItemState)PlayerPrefs2.GetItemState(itemID, (int)starterState);
 
         public string GetStateString(bool shopButton = false)
         {
@@ -36,8 +30,8 @@ namespace Items
         public enum ItemState
         {
             OnSale,
-            Aquired,
-            Equiped,
+            Acquired,
+            Equipped,
             Locked
         }
 
@@ -47,24 +41,10 @@ namespace Items
             {
                 case ItemState.OnSale:
                     return Language.GetText(Language.Text.Shop_ItemOnSale);
-                case ItemState.Aquired:
-                    if (shopButton)
-                    {
-                        return Language.GetText(Language.Text.Shop_ItemAquired);
-                    }
-                    else
-                    {
-                        return Language.GetText(Language.Text.Item_Aquired);
-                    }
-                case ItemState.Equiped:
-                    if (shopButton)
-                    {
-                        return Language.GetText(Language.Text.Shop_ItemEquiped); 
-                    }
-                    else
-                    {
-                        return Language.GetText(Language.Text.Item_Equiped);
-                    }
+                case ItemState.Acquired:
+                    return Language.GetText(shopButton ? Language.Text.Shop_ItemAquired : Language.Text.Item_Aquired);
+                case ItemState.Equipped:
+                    return Language.GetText(shopButton ? Language.Text.Shop_ItemEquiped : Language.Text.Item_Equiped);
                 case ItemState.Locked:
                     return Language.GetText(Language.Text.Item_Locked);
                 default:

@@ -1,6 +1,7 @@
 ﻿using Items;
 using Items.Potions;
 using UnityEngine;
+using Vault;
 
 public static class PlayerPrefs2
 {
@@ -368,38 +369,24 @@ public static class PlayerPrefs2
     #endregion
 
     #region Potions
-    public static void SetEquipedPrimaryPotion(Potion.PotionData potion)
+    public static void SetEquippedPrimaryPotion(Potion.PotionData potion)
     {
-        if (potion == null)
-        {
-            PlayerPrefs.SetString("EquipedPrimaryPotionData", null);
-        }
-        else
-        {
-            PlayerPrefs.SetString("EquipedPrimaryPotionData", JsonUtility.ToJson(potion));
-        }
+        PlayerPrefs.SetString("EquippedPrimaryPotionData", potion == null ? null : JsonUtility.ToJson(potion));
     }
 
-    public static Potion.PotionData GetEquipedPrimaryPotion()
+    public static Potion.PotionData GetEquippedPrimaryPotion()
     {
-        return JsonUtility.FromJson<Potion.PotionData>(PlayerPrefs.GetString("EquipedPrimaryPotionData", JsonUtility.ToJson(Potions.GetData(Potions.PotionName.SmallLife))));
+        return JsonUtility.FromJson<Potion.PotionData>(PlayerPrefs.GetString("EquippedPrimaryPotionData", JsonUtility.ToJson(Potions.GetData(Potions.PotionName.SmallLife))));
     }
 
-    public static void SetEquipedSecondaryPotion(Potion.PotionData potion)
+    public static void SetEquippedSecondaryPotion(Potion.PotionData potion)
     {
-        if (potion == null)
-        {
-            PlayerPrefs.SetString("EquipedSecondaryPotionData", null);
-        }
-        else
-        {
-            PlayerPrefs.SetString("EquipedSecondaryPotionData", JsonUtility.ToJson(potion));
-        }
+        PlayerPrefs.SetString("EquippedSecondaryPotionData", potion == null ? null : JsonUtility.ToJson(potion));
     }
 
-    public static Potion.PotionData GetEquipedSecondaryPotion()
+    public static Potion.PotionData GetEquippedSecondaryPotion()
     {
-        return JsonUtility.FromJson<Potion.PotionData>(PlayerPrefs.GetString("EquipedSecondaryPotionData", JsonUtility.ToJson(Potions.GetData(Potions.PotionName.SmallShield))));
+        return JsonUtility.FromJson<Potion.PotionData>(PlayerPrefs.GetString("EquippedSecondaryPotionData", JsonUtility.ToJson(Potions.GetData(Potions.PotionName.SmallShield))));
     }
     #endregion
     #endregion

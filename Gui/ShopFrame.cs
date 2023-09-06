@@ -123,11 +123,11 @@ public class ShopFrame : MonoBehaviour
                 ChangeImage(3, 0);
                 state.text = "";
                 break;
-            case ItemData.ItemState.Aquired:
+            case ItemData.ItemState.Acquired:
                 ChangeImage(4, 1);
                 state.text = ItemData.StateToString(itemState);
                 break;
-            case ItemData.ItemState.Equiped:
+            case ItemData.ItemState.Equipped:
                 ChangeImage(4, 1);
                 state.text = ItemData.StateToString(itemState);
                 break;

@@ -27,7 +27,7 @@ public static class Boots
                     itemName = Language.GetText(Language.Text.Boots_NameInicial),
                     description = Language.GetText(Language.Text.Boots_DescInicial),
                     price = 5,
-                    starterState = ItemData.ItemState.Equiped,
+                    starterState = ItemData.ItemState.Equipped,
                     resistance = 0,
                     sprite = Resources.Load<Sprite>("Items/Boots/Inicial"),
                     spriteBack = Resources.Load<Sprite>("Items/BootsBack/Inicial")

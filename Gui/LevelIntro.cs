@@ -59,8 +59,8 @@ namespace Gui
         private void UpdatePotion()
         {
             //Update equiped potions
-            primaryPotion.data = PlayerPrefs2.GetEquipedPrimaryPotion();
-            secondaryPotion.data = PlayerPrefs2.GetEquipedSecondaryPotion();
+            primaryPotion.data = PlayerPrefs2.GetEquippedPrimaryPotion();
+            secondaryPotion.data = PlayerPrefs2.GetEquippedSecondaryPotion();
             //Update the potion sprites
             primaryPotion.UpdateSprite();
             secondaryPotion.UpdateSprite();

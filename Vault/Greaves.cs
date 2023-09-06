@@ -27,7 +27,7 @@ public static class Greaves
                     itemName = Language.GetText(Language.Text.Greave_NameInicial),
                     description = Language.GetText(Language.Text.Greave_DescInicial),
                     price = 5,
-                    starterState = ItemData.ItemState.Equiped,
+                    starterState = ItemData.ItemState.Equipped,
                     resistance = 0,
                     sprite = Resources.Load<Sprite>("Items/Greaves/Inicial"),
                     spriteBack = Resources.Load<Sprite>("Items/GreavesBack/Inicial")

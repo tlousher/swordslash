@@ -1,4 +1,5 @@
 ﻿using System;
+using Misc;
 using UnityEngine;
 
 public class Slasher : MonoBehaviour

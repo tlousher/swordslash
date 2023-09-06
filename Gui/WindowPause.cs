@@ -1,4 +1,6 @@
-﻿public class WindowPause : Window
+﻿using Misc;
+
+public class WindowPause : Window
 {
     public void ContinueGame()
     {

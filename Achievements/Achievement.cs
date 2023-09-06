@@ -100,7 +100,7 @@ public class Achievement : MonoBehaviour
             }
             else
             {
-                PlayerPrefs2.SetItemState(rewardItemID, ItemData.ItemState.Aquired);
+                PlayerPrefs2.SetItemState(rewardItemID, ItemData.ItemState.Acquired);
                 SceneMaster.instance.ShowMessage("Logro completado", $"Felicitaciones por completar \"{title}\", puedes encontrar tu nuevo equipo en la tienda.", SceneMaster.MessageSFX.Notice);
             }
         }

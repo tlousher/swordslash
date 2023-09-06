@@ -66,7 +66,7 @@ public static class Shirts
                     itemName = Language.GetText(Language.Text.Shirt_NameInicial),
                     description = Language.GetText(Language.Text.Shirt_DescInicial),
                     price = 5,
-                    starterState = ItemData.ItemState.Equiped,
+                    starterState = ItemData.ItemState.Equipped,
                     resistance = 0,
                     sprite = Resources.Load<Sprite>("Items/Shirts/Inicial"),
                     spriteBack = Resources.Load<Sprite>("Items/ShirtsBack/Inicial")

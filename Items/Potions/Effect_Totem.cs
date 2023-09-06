@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Misc;
 using UnityEngine;
 
 public class Effect_Totem : Potion_Effect

@@ -35,8 +35,8 @@ public class PotionSelector : Window
         page = 0;
         CreateStand();
         //Update equiped potions
-        primaryPotion.data = PlayerPrefs2.GetEquipedPrimaryPotion();
-        secondaryPotion.data = PlayerPrefs2.GetEquipedSecondaryPotion();
+        primaryPotion.data = PlayerPrefs2.GetEquippedPrimaryPotion();
+        secondaryPotion.data = PlayerPrefs2.GetEquippedSecondaryPotion();
         //Update the potion sprites
         primaryPotion.UpdateSprite();
         secondaryPotion.UpdateSprite();
@@ -110,13 +110,13 @@ public class PotionSelector : Window
         if (selectedSlot == 1)
         {
             primaryPotion.data = potion.data;
-            PlayerPrefs2.SetEquipedPrimaryPotion(potion.data);
+            PlayerPrefs2.SetEquippedPrimaryPotion(potion.data);
             primaryPotion.UpdateSprite();
         }
         else
         {
             secondaryPotion.data = potion.data;
-            PlayerPrefs2.SetEquipedSecondaryPotion(potion.data);
+            PlayerPrefs2.SetEquippedSecondaryPotion(potion.data);
             secondaryPotion.UpdateSprite();
         }
     }
