@@ -1,4 +1,5 @@
 ﻿using System;
+using Character;
 using Misc;
 using UnityEngine;
 using UnityEngine.UI;

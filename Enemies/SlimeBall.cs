@@ -1,4 +1,5 @@
-﻿using Misc;
+﻿using Character;
+using Misc;
 using UnityEngine;
 
 public class SlimeBall : MonoBehaviour
