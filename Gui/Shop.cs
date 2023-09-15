@@ -330,7 +330,7 @@ public class Shop : MonoBehaviour
 
     public void SelectWeapon(Weapon weapon, ref Image weaponImage)
     {
-        Weapon.Weapon_Data weaponData = weapon.data;
+        Weapon.WeaponData weaponData = weapon.data;
 
         //Title & Description
         canvasTitle.text = weaponData.itemName;
@@ -437,7 +437,7 @@ public class Shop : MonoBehaviour
         switch (itemState)
         {
             case ItemData.ItemState.OnSale:
-                Weapon.Weapon_Data weapon = ShopFrame.selectedFrame.item.GetComponent<Weapon>().data;
+                Weapon.WeaponData weapon = ShopFrame.selectedFrame.item.GetComponent<Weapon>().data;
                 //Buys the item
                 BuyItem(weapon);
                 //Sets the item to be discovered
@@ -609,7 +609,7 @@ public class Shop : MonoBehaviour
         }
     }
 
-    private void EquipWeapon(Weapon.Weapon_Data newWeapon, Weapon.Weapon_Data oldWeapon)
+    private void EquipWeapon(Weapon.WeaponData newWeapon, Weapon.WeaponData oldWeapon)
     {
         switch (categorie)
         {

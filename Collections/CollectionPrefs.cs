@@ -40,13 +40,13 @@ namespace Collections
         }
         #endregion
 
-        public static List<Weapon.Weapon_Data> GetSwordsCollection()
+        public static List<Weapon.WeaponData> GetSwordsCollection()
         {
-            List<Weapon.Weapon_Data> swordsCollection = new List<Weapon.Weapon_Data>();
+            List<Weapon.WeaponData> swordsCollection = new List<Weapon.WeaponData>();
 
             for (int i = 0; i < Swords.Count; i++)
             {
-                Weapon.Weapon_Data sword = Swords.GetData((Swords.SwordName)i);
+                Weapon.WeaponData sword = Swords.GetData((Swords.SwordName)i);
                 sword.collectionState = GetCollectionState(sword.itemID, sword.collectionState);
                 swordsCollection.Add(sword);
             }

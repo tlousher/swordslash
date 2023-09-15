@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Character;
 using Collections;
+using Gui;
 using Inputs;
 using Items;
 using Misc;
@@ -28,6 +29,7 @@ namespace Enemies
         public GameObject collectiblePrefab;
         public Material normalMaterial;
         public Material outlineMaterial;
+        public GameObject comboText;
         public AnimationClip attackClip;
         public AnimationClip dieClip;
 
@@ -220,7 +222,7 @@ namespace Enemies
             RemoveEnemy(attackDelay);
         }
 
-        protected void Die()
+        internal void Die()
         {
             if (!alive) return;
             // Plays the die animation
@@ -242,6 +244,8 @@ namespace Enemies
 
             // Removes the enemy from the scene
             RemoveEnemy(dieClip.length);
+            var newCombo = Instantiate(comboText, transform.position, Quaternion.identity);
+            Destroy(newCombo, 0.6f);
         }
 
         private void RemoveEnemy(float extraTime = 0)

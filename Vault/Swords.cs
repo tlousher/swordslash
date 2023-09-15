@@ -31,12 +31,12 @@ public static class Swords
         return $"{ItemType}_{swordName}";
     }
 
-    public static Weapon.Weapon_Data GetData(SwordName sword)
+    public static Weapon.WeaponData GetData(SwordName sword)
     {
         switch (sword)
         {
             case SwordName.EspadaMadera:
-                return new Weapon.Weapon_Data
+                return new Weapon.WeaponData
                 {
                     itemID = SwordID(SwordName.EspadaMadera),
                     itemName = Language.GetText(Language.Text.Sword_NameEspadaMadera),
@@ -52,7 +52,7 @@ public static class Swords
                     clips = Resources.LoadAll<AudioClip>("Sfx/Swords/Normal")
                 };
             case SwordName.EspadaHierro:
-                return new Weapon.Weapon_Data
+                return new Weapon.WeaponData
                 {
                     itemID = SwordID(SwordName.EspadaHierro),
                     itemName = Language.GetText(Language.Text.Sword_NameEspadaHierro),
@@ -68,7 +68,7 @@ public static class Swords
                     clips = Resources.LoadAll<AudioClip>("Sfx/Swords/Normal")
                 };
             case SwordName.Aqua:
-                return new Weapon.Weapon_Data
+                return new Weapon.WeaponData
                 {
                     itemID = SwordID(SwordName.Aqua),
                     itemName = Language.GetText(Language.Text.Sword_NameAqua),
@@ -84,7 +84,7 @@ public static class Swords
                     clips = Resources.LoadAll<AudioClip>("Sfx/Swords/Normal")
                 };
             case SwordName.OscuridadDemoniaca:
-                return new Weapon.Weapon_Data
+                return new Weapon.WeaponData
                 {
                     itemID = SwordID(SwordName.OscuridadDemoniaca),
                     itemName = Language.GetText(Language.Text.Sword_NameOscuridadDemoniaca),
@@ -100,7 +100,7 @@ public static class Swords
                     clips = Resources.LoadAll<AudioClip>("Sfx/Swords/Normal")
                 };
             case SwordName.EspadaSombras:
-                return new Weapon.Weapon_Data
+                return new Weapon.WeaponData
                 {
                     itemID = SwordID(SwordName.EspadaSombras),
                     itemName = Language.GetText(Language.Text.Sword_NameEspadaSombras),
@@ -116,7 +116,7 @@ public static class Swords
                     clips = Resources.LoadAll<AudioClip>("Sfx/Swords/Normal")
                 };
             case SwordName.EspadonCelestial:
-                return new Weapon.Weapon_Data
+                return new Weapon.WeaponData
                 {
                     itemID = SwordID(SwordName.EspadonCelestial),
                     itemName = Language.GetText(Language.Text.Sword_NameEspadonCelestial),
@@ -132,7 +132,7 @@ public static class Swords
                     clips = Resources.LoadAll<AudioClip>("Sfx/Swords/Normal")
                 };
             case SwordName.Volcanora:
-                return new Weapon.Weapon_Data
+                return new Weapon.WeaponData
                 {
                     itemID = SwordID(SwordName.Volcanora),
                     itemName = Language.GetText(Language.Text.Sword_NameVolcanora),
@@ -148,7 +148,7 @@ public static class Swords
                     clips = Resources.LoadAll<AudioClip>("Sfx/Swords/Normal")
                 };
             case SwordName.Hidroblade:
-                return new Weapon.Weapon_Data
+                return new Weapon.WeaponData
                 {
                     itemID = SwordID(SwordName.Hidroblade),
                     itemName = Language.GetText(Language.Text.Sword_NameHidroblade),
@@ -164,7 +164,7 @@ public static class Swords
                     clips = Resources.LoadAll<AudioClip>("Sfx/Swords/Normal")
                 };
             case SwordName.Inferno:
-                return new Weapon.Weapon_Data
+                return new Weapon.WeaponData
                 {
                     itemID = SwordID(SwordName.Inferno),
                     itemName = Language.GetText(Language.Text.Sword_NameInferno),
@@ -180,7 +180,7 @@ public static class Swords
                     clips = Resources.LoadAll<AudioClip>("Sfx/Swords/Normal")
                 };
             case SwordName.RebanadoraSlimes:
-                return new Weapon.Weapon_Data
+                return new Weapon.WeaponData
                 {
                     itemID = SwordID(SwordName.RebanadoraSlimes),
                     itemName = Language.GetText(Language.Text.Sword_NameRebanadoraSlimes),
@@ -196,7 +196,7 @@ public static class Swords
                     clips = Resources.LoadAll<AudioClip>("Sfx/Swords/Normal")
                 };
             case SwordName.EspadonBosque:
-                return new Weapon.Weapon_Data
+                return new Weapon.WeaponData
                 {
                     itemID = SwordID(SwordName.EspadonBosque),
                     itemName = Language.GetText(Language.Text.Sword_NameEspadonBosque),
@@ -212,7 +212,7 @@ public static class Swords
                     clips = Resources.LoadAll<AudioClip>("Sfx/Swords/Normal")
                 };
             case SwordName.EspadaCristal:
-                return new Weapon.Weapon_Data
+                return new Weapon.WeaponData
                 {
                     itemID = SwordID(SwordName.EspadaCristal),
                     itemName = Language.GetText(Language.Text.Sword_NameEspadaCristal),
@@ -228,7 +228,7 @@ public static class Swords
                     clips = Resources.LoadAll<AudioClip>("Sfx/Swords/Normal")
                 };
             case SwordName.EspadaPaladin:
-                return new Weapon.Weapon_Data
+                return new Weapon.WeaponData
                 {
                     itemID = SwordID(SwordName.EspadaPaladin),
                     itemName = Language.GetText(Language.Text.Sword_NameEspadaPaladin),

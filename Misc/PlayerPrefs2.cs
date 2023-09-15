@@ -256,7 +256,7 @@ public static class PlayerPrefs2
     #endregion
 
     #region Swords
-    public static void SetEquipedSword(Weapon.Weapon_Data sword)
+    public static void SetEquipedSword(Weapon.WeaponData sword)
     {
         if (sword == null)
         {
@@ -268,9 +268,9 @@ public static class PlayerPrefs2
         }
     }
 
-    public static Weapon.Weapon_Data GetEquipedSword()
+    public static Weapon.WeaponData GetEquipedSword()
     {
-        return JsonUtility.FromJson<Weapon.Weapon_Data>(PlayerPrefs.GetString("EquipedSwordData", JsonUtility.ToJson(Swords.GetData(Swords.SwordName.EspadaMadera))));
+        return JsonUtility.FromJson<Weapon.WeaponData>(PlayerPrefs.GetString("EquipedSwordData", JsonUtility.ToJson(Swords.GetData(Swords.SwordName.EspadaMadera))));
     }
     #endregion
 
