@@ -1,4 +1,7 @@
 ﻿using System.Collections;
+using Enemies;
+using Gui;
+using Items;
 using Misc;
 using UnityEngine;
 
@@ -115,6 +118,7 @@ namespace Character
         {
             // Triggers the sword special ability
             // This ability if kills enemys it can't kill with slash method so it doesn't trigger another combo
+            GameManager.instance.enemiesGroup.SendMessage(nameof(Enemy.Die));
 
             //Turn off the button and restart the combo bar
             ComboManager.instance.Reset();
