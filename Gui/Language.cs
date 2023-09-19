@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Gui
 {
@@ -437,6 +438,20 @@ namespace Gui
             PlayMode_Hunt,
             PlayMode_Train
             #endregion
+        }
+
+        public enum TutorialText
+        {
+            TouchToContinue,
+            TrainingMaster01,
+            TrainingMaster02,
+            TrainingMaster03,
+            TrainingMaster04,
+            TrainingMistake01,
+            TrainingMistake02,
+            TrainingMistake03,
+            TrainingMistake04,
+            TrainingStudent01
         }
 
         public static string GetText(Text text)
@@ -1938,6 +1953,79 @@ namespace Gui
                         #endregion
                         default:
                             return null;
+                    }
+                default:
+                    return null;
+            }
+        }
+
+        public static string GetTutorialText(TutorialText text)
+        {
+            switch (PlayerPrefs2.SelectedLanguage)
+            {
+                case Languages.Spanish:
+                    switch (text)
+                    {
+                        #region Training_Start
+                        case TutorialText.TrainingMaster01:
+                            return "Así que por fin decidiste aparecer, ¿estás listo?";
+                        case TutorialText.TrainingStudent01:
+                            return "Ehh… Eso creo";
+                        case TutorialText.TrainingMaster02:
+                            return "¿Qué clase de respuesta patética es esa? Vamos muchacho, tu padre era mucho más confiado a tu edad";
+                        case TutorialText.TrainingMaster03:
+                            return "Como sea, ven, vamos a empezar con la espada…";
+                        case TutorialText.TrainingMaster04:
+                            return "Empecemos con algo sencillo, intenta hacer un corte horizontal.";
+                        #endregion
+                        #region Training_Mistakes
+                        case TutorialText.TrainingMistake01:
+                            return "Eso es lo mejor que tienes";
+                        case TutorialText.TrainingMistake02:
+                            return "¡Vamos! eso ni siquiera es un corte";
+                        case TutorialText.TrainingMistake03:
+                            return "Puedes hacerlo mejor que eso";
+                        case TutorialText.TrainingMistake04:
+                            return "He visto mejores cortes en la cocina";
+                        #endregion
+                        #region MyRegion
+                        case TutorialText.TouchToContinue:
+                            return "~Toca para continuar~";
+                        #endregion
+                        default:
+                            throw new ArgumentOutOfRangeException(nameof(text), text, "No se ha encontrado el texto solicitado.");
+                    }
+                case Languages.English:
+                    switch (text)
+                    {
+                        #region Training_start
+                        case TutorialText.TrainingMaster01:
+                            return "So you finally decided to show up, are you ready?";
+                        case TutorialText.TrainingStudent01:
+                            return "Ehh… I think so";
+                        case TutorialText.TrainingMaster02:
+                            return "What a pathetic answer... Come on boy at your age your father was much more confident";
+                        case TutorialText.TrainingMaster03:
+                            return "Anyway, come on, let's start with the sword...";
+                        case TutorialText.TrainingMaster04:
+                            return "Let's start with something simple, try to make a horizontal slash.";
+                        #endregion
+                        #region Training_Mistakes
+                        case TutorialText.TrainingMistake01:
+                            return "That's the best you got";
+                        case TutorialText.TrainingMistake02:
+                            return "Come on! that's barely slash";
+                        case TutorialText.TrainingMistake03:
+                            return "You can do better than that";
+                        case TutorialText.TrainingMistake04:
+                            return "I've seen better cuts in the kitchen";
+                        #endregion
+                        #region MyRegion
+                        case TutorialText.TouchToContinue:
+                            return "~Touch to continue~";
+                        #endregion
+                        default:
+                            throw new ArgumentOutOfRangeException(nameof(text), text, "The requested text has not been found.");
                     }
                 default:
                     return null;

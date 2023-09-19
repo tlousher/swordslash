@@ -114,7 +114,7 @@ namespace Enemies
             }
         }
 
-        private void Update()
+        protected virtual void Update()
         {
             if(monsterName == Monsters.MonsterName.Training) return;
             moving = animator.GetCurrentAnimatorStateInfo(0).fullPathHash == moveClipHash;
