@@ -96,7 +96,7 @@ namespace Gui
             // Add the counter to the players power
             comboPower += counter;
             // Updates the fill amount of the bar
-            fillCircle.fillAmount += comboPower * FillPercent;
+            fillBar.fillAmount += comboPower * FillPercent;
 
             // If I've completed the bar
             if (comboPower < maxCombo) return;

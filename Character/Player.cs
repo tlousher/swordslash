@@ -23,6 +23,7 @@ namespace Character
         public Armor boots;
         [Header("Prefabs")]
         public GameObject damageScreen;
+        public GameObject comboSlash;
         [HideInInspector]
         public GameObject shield;
 
@@ -118,10 +119,17 @@ namespace Character
         {
             // Triggers the sword special ability
             // This ability if kills enemys it can't kill with slash method so it doesn't trigger another combo
-            GameManager.instance.enemiesGroup.SendMessage(nameof(Enemy.Die));
+            GameManager.instance.enemiesGroup.BroadcastMessage(nameof(Enemy.Die));
+            comboSlash.SetActive(true);
+            Invoke(nameof(ComboSlashInactivate), 0.5f);
 
             //Turn off the button and restart the combo bar
             ComboManager.instance.Reset();
+        }
+        
+        public void ComboSlashInactivate()
+        {
+            comboSlash.SetActive(false);
         }
 
         public void Damage(int enemyPower)

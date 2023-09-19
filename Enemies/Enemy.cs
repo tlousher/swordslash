@@ -51,7 +51,7 @@ namespace Enemies
         private readonly int damageTriggerHash = Animator.StringToHash("Damage");
         private readonly int attackTriggerHash = Animator.StringToHash("Attack");
         private readonly int moveClipHash = Animator.StringToHash("Base Layer.Move");
-        private readonly int deadTriggerHash = Animator.StringToHash("Die");
+        private readonly int deadTriggerHash = Animator.StringToHash("Dead");
 
         private Vector3 GetTarget()
         {
