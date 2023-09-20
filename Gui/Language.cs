@@ -2033,7 +2033,7 @@ namespace Gui
                         case TutorialText.TrainingMistake04:
                             return "He visto mejores cortes en la cocina";
                         #endregion
-                        #region MyRegion
+                        #region Miscellanous
                         case TutorialText.TouchToContinue:
                             return "~Toca para continuar~";
                         #endregion
@@ -2095,7 +2095,7 @@ namespace Gui
                         case TutorialText.TrainingMistake04:
                             return "I've seen better cuts in the kitchen";
                         #endregion
-                        #region MyRegion
+                        #region Miscellanous
                         case TutorialText.TouchToContinue:
                             return "~Touch to continue~";
                         #endregion
