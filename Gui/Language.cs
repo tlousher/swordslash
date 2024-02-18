@@ -436,8 +436,9 @@ namespace Gui
             PlayMode_Horde,
             PlayMode_Time,
             PlayMode_Hunt,
-            PlayMode_Train
+            PlayMode_Train,
             #endregion
+            Training
         }
 
         public enum TutorialText
@@ -502,6 +503,8 @@ namespace Gui
                             return "Harold Troya";
                         case Text.Options_Developer2:
                             return "Josué Calle";
+                        case Text.Training:
+                            return "Entrenamiento";
                         #endregion
                         #region Nivel
                         case Text.Level_Victory:
@@ -1250,6 +1253,8 @@ namespace Gui
                             return "Harold Troya";
                         case Text.Options_Developer2:
                             return "Josué Calle";
+                        case Text.Training:
+                            return "Training";
                         #endregion
                         #region Nivel
                         case Text.Level_Victory:

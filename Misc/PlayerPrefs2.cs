@@ -152,6 +152,12 @@ public static class PlayerPrefs2
     #endregion
 
     #region Player
+    public static bool ShowTutorial
+    {
+        get => PlayerPrefs.GetInt("ShowTutorial", 1) == 1;
+        set => PlayerPrefs.SetInt("ShowTutorial", value ? 1 : 0);
+    }
+    
     public static int PlayerLevel
     {
         get => PlayerPrefs.GetInt("PlayerLevel", 0);

@@ -127,7 +127,18 @@ namespace Misc
 
         public void LevelMap()
         {
+            if (PlayerPrefs2.ShowTutorial)
+            {
+                PlayerPrefs2.ShowTutorial = false;
+                LevelTraining();
+                return;
+            }
             LoadScene("LevelMap");
+        }
+
+        public void LevelTraining()
+        {
+            LoadScene("Training");
         }
 
         public void RestartScene()
