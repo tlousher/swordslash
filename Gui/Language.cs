@@ -461,6 +461,9 @@ namespace Gui
             TrainingMaster16,
             TrainingMaster17,
             TrainingMaster18,
+            TrainingMaster19,
+            TrainingMaster20,
+            TrainingMaster21,
             TrainingMistake01,
             TrainingMistake02,
             TrainingMistake03,
@@ -1991,21 +1994,25 @@ namespace Gui
                         case TutorialText.TrainingMaster03:
                             return "Como sea, ven, vamos a empezar con la espada…";
                         case TutorialText.TrainingMaster04:
-                            return "Empecemos con algo sencillo, intenta hacer un corte horizontal.";
-                        case TutorialText.TrainingMaster05:
-                            return "Quita esa cara de satisfacción solo es un corte horizontal, ahora intenta un corte vertical.";
+                            return "Empecemos con algo sencillo, intenta hacer un <color=#6D9129>corte horizontal.</color>\n<size=70>(Desliza tu dedo de izquierda a derecha o derecha a izquierda).</size>";
                         case TutorialText.TrainingStudent02:
                             return "¡Increible! Lo logré";
+                        case TutorialText.TrainingMaster05:
+                            return "Quita esa cara de satisfacción solo es un corte horizontal, ahora intenta un <color=#808080>corte vertical</color>.";
                         case TutorialText.TrainingMaster06:
-                            return "Te pareció sencillo, ahora prueba con un corte diagonal.";
+                            return "¿Te pareció sencillo?, ahora para terminar prueba con un <color=#2187A6>corte diagonal</color>.";
                         case TutorialText.TrainingMaster07:
                             return "Por mucho que te estés divirtiendo no podrás aguantar  estar dando espadazos todo el día.";
                         case TutorialText.TrainingMaster08:
-                            return "Cada vez que hagas un corte perderás un punto de estamina, podrás ver cuántos puntos te quedan en esta barra.";
+                            return "Cada vez que hagas un corte perderás un punto de estamina, recuerda que si no tienes estamina no podrás hacer ningún corte.";
                         case TutorialText.TrainingMaster09:
-                            return "Recuerda que si no tienes estamina no podrás hacer ningún corte.";
+                            return "Podrás ver cuántos puntos te quedan en esta barra.";
+                        case TutorialText.TrainingMaster19:
+                            return "Por ahora solo tienes un punto, pero con el paso del tiempo podras mejorarla.";
+                        case TutorialText.TrainingMaster20:
+                            return "La estamina se recupera con el tiempo.";
                         case TutorialText.TrainingMaster10:
-                            return "Ejercita un poco esos brazos, realiza cortes en cualquier dirección y no te olvides de tomar en cuenta tu estamina.";
+                            return "Ahora ejercita un poco esos brazos, pongamos en practica todo lo que has aprendido.";
                         case TutorialText.TrainingMaster11:
                             return "Ahora que conoces los límites de tu fuerza debes conocer los de tu espada.";
                         case TutorialText.TrainingMaster12:
@@ -2015,13 +2022,15 @@ namespace Gui
                         case TutorialText.TrainingMaster14:
                             return "Cada enemigo tiene una dirección de corte diferente, tienes que fijarte bien en los detalles.";
                         case TutorialText.TrainingMaster15:
-                            return "Por ejemplo, ese es un enemigo horizontal.";
+                            return "Por ejemplo, ese es un enemigo <color=#6D9129>horizontal</color>.";
                         case TutorialText.TrainingMaster16:
-                            return "Como ves, aquel es vertical.";
+                            return "Este como lo indica ligeramente su apariencia, es <color=#808080>vertical</color>.";
                         case TutorialText.TrainingMaster17:
-                            return "Y este ultimo es en diagonal.";
+                            return "Y este ultimo es en <color=#2187A6>diagonal</color>.";
                         case TutorialText.TrainingMaster18:
-                            return "Ya terminamos con lo básico, intenta cortar estos enemigos de práctica y demuéstrame todo lo que has aprendido.";
+                            return "Hay algunos casos especificos en los que los enemigos pueden recibir cortes en cualquier direccion.";
+                        case TutorialText.TrainingMaster21:
+                            return "Con esto terminamos lo básico, mucha suerte muchacho!";
                         #endregion
                         #region Training_Mistakes
                         case TutorialText.TrainingMistake01:
@@ -2053,21 +2062,25 @@ namespace Gui
                         case TutorialText.TrainingMaster03:
                             return "Anyway, come on, let's start with the sword...";
                         case TutorialText.TrainingMaster04:
-                            return "Let's start with something simple, try to make a horizontal slash.";
+                            return "Let's start with something simple, try to make a <color=#6D9129>horizontal slash.</color>\n<size=70>(Slide your finger from left to right or right to left).</size>";
                         case TutorialText.TrainingMaster05:
-                            return "Take that satisfied face off, it's just a horizontal slash, now try a vertical slash.";
+                            return "Take that satisfied face off, it's just a horizontal slash, now try a <color=#808080>vertical slash</color>.";
                         case TutorialText.TrainingStudent02:
                             return "Amazing! I did it";
                         case TutorialText.TrainingMaster06:
-                            return "It seemed easy to you, now try a diagonal slash.";
+                            return "It seemed easy to you? Now to finish slashing try a <color=#2187A6>diagonal slash</color>.";
                         case TutorialText.TrainingMaster07:
                             return "As much as you are having fun you won't be able to stand being slashing all day.";
                         case TutorialText.TrainingMaster08:
-                            return "Every time you make a slash you will lose a stamina point, you can see how many points you have left in this bar.";
+                            return "Every time you make a cut, you will lose one stamina point. Remember, if you run out of stamina, you won't be able to make any cuts.";
                         case TutorialText.TrainingMaster09:
-                            return "Remember that if you don't have stamina you won't be able to make any slash.";
+                            return "You can see how many points you have left in this bar.";
+                        case TutorialText.TrainingMaster19:
+                            return "Right now, you only have one point, but over time, you'll be able to improve it.";
+                        case TutorialText.TrainingMaster20:
+                            return "Stamina replenishes over time.";
                         case TutorialText.TrainingMaster10:
-                            return "Exercise those arms a little, make slashes in any direction and don't forget to take into account your stamina.";
+                            return "Now, exercise those arms a bit. Let's put into practice everything you've learned.";
                         case TutorialText.TrainingMaster11:
                             return "Now that you know the limits of your strength you must know those of your sword.";
                         case TutorialText.TrainingMaster12:
@@ -2077,13 +2090,15 @@ namespace Gui
                         case TutorialText.TrainingMaster14:
                             return "Each enemy has a different slash direction, you have to look closely at the details.";
                         case TutorialText.TrainingMaster15:
-                            return "For example, that is a horizontal enemy.";
+                            return "For example, that is a <color=#6D9129>horizontal</color> enemy.";
                         case TutorialText.TrainingMaster16:
-                            return "As you can see, that one is vertical.";
+                            return "This one, as its appearance slightly indicates, is <color=#808080>vertical</color>.";
                         case TutorialText.TrainingMaster17:
-                            return "And this last one is diagonal.";
+                            return "And this last one is <color=#2187A6>diagonal</color>.";
                         case TutorialText.TrainingMaster18:
-                            return "We are done with the basics, try to slash these practice enemies and show me everything you have learned.";
+                            return "There are some specific cases where enemies can receive cuts in any direction.";
+                        case TutorialText.TrainingMaster21:
+                            return "With this, we finish the basics. Good luck, young man!";
                         #endregion
                         #region Training_Mistakes
                         case TutorialText.TrainingMistake01:

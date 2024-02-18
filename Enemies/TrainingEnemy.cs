@@ -1,9 +1,11 @@
-﻿using Character;
+﻿using System;
+using Character;
 
 namespace Enemies
 {
     public class TrainingEnemy : Enemy
     {
+        internal Action action;
         protected override void AchievementCounterPlus()
         {
             PlayerPrefs2.IncreaseAchievementProgress(Achievements.Achievements.AchievementID(Achievements.Achievements.AchievementName.TrainingManiac));
@@ -21,6 +23,12 @@ namespace Enemies
                 inRange = false;
                 HideAura();
             }
+        }
+        
+        internal override void Die()
+        {
+            action?.Invoke();
+            gameObject.SetActive(false);
         }
     }
 }

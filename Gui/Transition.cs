@@ -1,12 +1,17 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
-public class Transition : MonoBehaviour
+namespace Gui
 {
-    public Animator Animator
+    public class Transition : MonoBehaviour
     {
-        get
+        internal static float TransitionTime;
+
+        private void Awake()
         {
-            return GetComponent<Animator>();
+            var animator = GetComponent<Animator>();
+            var stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+            TransitionTime = stateInfo.length;
         }
     }
 }

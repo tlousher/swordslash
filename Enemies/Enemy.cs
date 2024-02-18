@@ -168,12 +168,21 @@ namespace Enemies
             }
         }
 
-        private void Damage()
+        private void Damage(Slasher.SlashDirections direction)
         {
             healthPoints--;
             try
             {
-                animator.SetTrigger(damageTriggerHash);
+                var parameters = animator.parameters;
+                if (parameters.Any(parameter => parameter.name == $"Damage_{direction}"))
+                {
+                    // Set the parameter "Damage" + direction to true
+                    animator.SetTrigger($"Damage_{direction}");
+                }
+                else
+                {
+                    animator.SetTrigger(damageTriggerHash);
+                }
             }
             catch (System.Exception)
             {
@@ -187,7 +196,7 @@ namespace Enemies
             var goodDirection = validDirections.Contains(Slasher.SlashDirections.Joker) || validDirections.Contains(direction);
 
             if (!inRange || !goodDirection) return;
-            Damage();
+            Damage(direction);
             if (healthPoints >= 1) return;
             //Updates the score and kills count on the gamemaster
             GameManager.instance.score += score;
@@ -222,7 +231,7 @@ namespace Enemies
             RemoveEnemy(attackDelay);
         }
 
-        internal void Die()
+        internal virtual void Die()
         {
             if (!alive) return;
             // Plays the die animation
