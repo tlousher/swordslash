@@ -51,7 +51,7 @@ namespace Items.Potions
                 animator.SetTrigger(shakeHash);
                 return;
             }
-            data.effect.potionParent = gameObject;
+            if (data.effect != null) data.effect.potionParent = gameObject;
             if (!data.GetEffect.ActivateEffect()) return;
             
             // Se activa el efecto

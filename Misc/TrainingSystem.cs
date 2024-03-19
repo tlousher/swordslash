@@ -225,6 +225,10 @@ namespace Misc
                     jokerDemo.SetActive(false);
                     _dialog.ShowDialog(Language.GetTutorialText(Language.TutorialText.TrainingMaster21));
                     break;
+                case 27:
+                    dialogHUD.SetActive(false);
+                    SceneMaster.instance.LevelMap();
+                    break;
             }
         }
     }

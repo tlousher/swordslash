@@ -2,7 +2,7 @@
 using Misc;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Experimental.Rendering.Universal;
+
 using UnityEngine.UI;
 
 public class ExpWheel : MonoBehaviour
@@ -98,13 +98,13 @@ public class ExpWheel : MonoBehaviour
     private void DotOn(int i)
     {
         dots[i].material = materialGlow;
-        dots[i].GetComponentInChildren<Light2D>(true).enabled = true;
+        dots[i].GetComponentInChildren<UnityEngine.Rendering.Universal.Light2D>(true).enabled = true;
     }
 
     private void DotOff(int i)
     {
         dots[i].material = null;
-        dots[i].GetComponentInChildren<Light2D>(true).enabled = false;
+        dots[i].GetComponentInChildren<UnityEngine.Rendering.Universal.Light2D>(true).enabled = false;
     }
 
     public int DotsCount

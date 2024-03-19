@@ -30,29 +30,30 @@ namespace Vault
 
         public static Potion_Effect GetEffect(string potion)
         {
-            switch (potion)
+            return potion switch
             {
-                case "Potions_SmallLife":
-                    return new Effect_Life(1, Resources.Load<GameObject>("Items/Potions/Effects/VidaPequena"), Potion_Effect.Variation.Power);
-                case "Potions_MediumLife":
-                    return new Effect_Life(3, Resources.Load<GameObject>("Items/Potions/Effects/VidaMediana"), Potion_Effect.Variation.Power);
-                case "Potions_BigLife":
-                    return new Effect_Life(PlayerPrefs2.PlayerMaxHealth, Resources.Load<GameObject>("Items/Potions/Effects/VidaGigante"), Potion_Effect.Variation.Power);
-                case "Potions_SmallShield":
-                    return new Effect_Shield(1, 5, Resources.Load<GameObject>("Items/Potions/Effects/Shield_Magic"));
-                case "Potions_MediumShield":
-                    return new Effect_Shield(2, 5, Resources.Load<GameObject>("Items/Potions/Effects/Shield_Powerfull"));
-                case "Potions_BigShield":
-                    return new Effect_Shield(3, 5, Resources.Load<GameObject>("Items/Potions/Effects/Shield_Mistic"));
-                case "Potions_Energy":
-                    return new Effect_Life(5, Resources.Load<GameObject>("Items/Potions/Effects/StaminaRecharge"), Potion_Effect.Variation.Duration);
-                case "Potions_Inmunity":
-                    return new Effect_Life(5, Resources.Load<GameObject>("Items/Potions/Effects/InvulnerabilityZone"), Potion_Effect.Variation.Duration);
-                case "Potions_Range":
-                    return new Effect_Life(15, 5, Resources.Load<GameObject>("Items/Potions/Effects/VisionFlash"));
-                default:
-                    return null;
-            }
+                "Potions_SmallLife" => new Effect_Life(1,
+                    Resources.Load<GameObject>("Items/Potions/Effects/VidaPequena"), Potion_Effect.Variation.Power),
+                "Potions_MediumLife" => new Effect_Life(3,
+                    Resources.Load<GameObject>("Items/Potions/Effects/VidaMediana"), Potion_Effect.Variation.Power),
+                "Potions_BigLife" => new Effect_Life(PlayerPrefs2.PlayerMaxHealth,
+                    Resources.Load<GameObject>("Items/Potions/Effects/VidaGigante"), Potion_Effect.Variation.Power),
+                "Potions_SmallShield" => new Effect_Shield(1, 5,
+                    Resources.Load<GameObject>("Items/Potions/Effects/Shield_Magic")),
+                "Potions_MediumShield" => new Effect_Shield(2, 5,
+                    Resources.Load<GameObject>("Items/Potions/Effects/Shield_Powerfull")),
+                "Potions_BigShield" => new Effect_Shield(3, 5,
+                    Resources.Load<GameObject>("Items/Potions/Effects/Shield_Mistic")),
+                "Potions_Energy" => new Effect_Life(5,
+                    Resources.Load<GameObject>("Items/Potions/Effects/StaminaRecharge"),
+                    Potion_Effect.Variation.Duration),
+                "Potions_Inmunity" => new Effect_Life(5,
+                    Resources.Load<GameObject>("Items/Potions/Effects/InvulnerabilityZone"),
+                    Potion_Effect.Variation.Duration),
+                "Potions_Range" => new Effect_Life(15, 5,
+                    Resources.Load<GameObject>("Items/Potions/Effects/VisionFlash")),
+                _ => null
+            };
         }
 
         public static Potion.PotionData GetData(PotionName potion)

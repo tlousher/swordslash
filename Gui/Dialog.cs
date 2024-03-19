@@ -40,9 +40,17 @@ namespace Gui
             _textMeshPro.text = "";
             try
             {
+                var isRichText = false;
                 foreach (var letter in _text)
                 {
                     _textMeshPro.text += letter;
+                    isRichText = letter switch
+                    {
+                        '<' => true,
+                        '>' => false,
+                        _ => isRichText
+                    };
+                    if (isRichText) continue;
                     await Task.Delay(delayPerLetter, _cancellationToken.Token);
                     if (_cancellationToken.IsCancellationRequested) return;
                 }

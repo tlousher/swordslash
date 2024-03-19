@@ -438,7 +438,8 @@ namespace Gui
             PlayMode_Hunt,
             PlayMode_Train,
             #endregion
-            Training
+            Training,
+            Loading
         }
 
         public enum TutorialText
@@ -660,7 +661,7 @@ namespace Gui
                         case Text.Sword_DescEspadaSombras:
                             return "Forjada por los herreros del bosque sombrío con Daknatita.";
                         case Text.Sword_DescEspadonBosque:
-                            return "Se consigue al derrotar a 50 troncos.";
+                            return "Se consigue al derrotar a 50 espíritus del bosque.";
                         case Text.Sword_DescEspadonCelestial:
                             return "Imbuido con magia angelical y forjada con una aleación de acero azul y dinatio.";
                         case Text.Sword_DescHidroblade:
@@ -670,7 +671,7 @@ namespace Gui
                         case Text.Sword_DescOscuridadDemoniaca:
                             return "Fue la espada del gran demonio Ragnek, hasta que un gran guerrero lo derrotó y guardó su espada como trofeo.";
                         case Text.Sword_DescRebanadoraSlimes:
-                            return "Se consigue al derrotar a 75 slimes.";
+                            return "Se consigue al derrotar a 75 espíritus del pantano.";
                         case Text.Sword_DescVolcanora:
                             return "De las entrañas del gran volcán Kranto llena de la energía de la tierra y su calor.";
                         case Text.Sword_DescEspadaCristal:
@@ -812,7 +813,7 @@ namespace Gui
                         case Text.Chestplate_NameBosque:
                             return "Peto del bosque";
                         case Text.Chestplate_NameRebanadorSlimes:
-                            return "Peto rebanador de slimes";
+                            return "Peto rebanador del pantano";
                         case Text.Chestplate_NameInferno:
                             return "Peto inferno";
                         case Text.Chestplate_DescLeñador:
@@ -870,7 +871,7 @@ namespace Gui
                         case Text.Helmet_NameBosque:
                             return "Casco del bosque";
                         case Text.Helmet_NameRebanadorSlimes:
-                            return "Casco rebanador de slimes";
+                            return "Casco rebanador del pantano";
                         case Text.Helmet_NameInferno:
                             return "Casco inferno";
                         case Text.Helmet_DescLeñador:
@@ -942,11 +943,11 @@ namespace Gui
                         #endregion
                         #region Collectibles
                         case Text.Collectible_NameWaterOrbMini:
-                            return "Pequeño orbe espiritual de agua";
+                            return "Pequeño orbe espíritual de agua";
                         case Text.Collectible_NameWaterOrb:
-                            return "Orbe espiritual de agua";
+                            return "Orbe espíritual de agua";
                         case Text.Collectible_NameWaterOrbBig:
-                            return "Gran orbe espiritual de agua";
+                            return "Gran orbe espíritual de agua";
                         case Text.Collectible_DescWaterOrbMini:
                             return "Contiene un poco de la esencia de un espíritu de agua.";
                         case Text.Collectible_DescWaterOrb:
@@ -954,17 +955,17 @@ namespace Gui
                         case Text.Collectible_DescWaterOrbBig:
                             return "Contiene la esencia de un espíritu de agua y toda su magia.";
                         case Text.Collectible_NameWoodOrbMini:
-                            return "Pequeño orbe espiritual de madera";
+                            return "Pequeño orbe espíritual de madera";
                         case Text.Collectible_NameWoodOrb:
-                            return "Orbe espiritual de madera";
+                            return "Orbe espíritual de madera";
                         case Text.Collectible_NameWoodOrbBig:
-                            return "Gran orbe espiritual de madera";
+                            return "Gran orbe espíritual de madera";
                         case Text.Collectible_DescWoodOrbMini:
-                            return "Contiene un poco de la esencia de un tronco.";
+                            return "Contiene un poco de la esencia de un espíritu del bosque.";
                         case Text.Collectible_DescWoodOrb:
-                            return "Contiene la esencia de un tronco.";
+                            return "Contiene la esencia de un espíritu del bosque.";
                         case Text.Collectible_DescWoodOrbBig:
-                            return "Contiene la esencia de un tronco y toda su magia.";
+                            return "Contiene la esencia de un espíritu del bosque y toda su magia.";
                         #endregion
                         #region Achievements
                         case Text.Achievement_Title:
@@ -1148,21 +1149,21 @@ namespace Gui
                         #endregion
                         #region Monsters
                         case Text.Monster_NameWater:
-                            return "Espiritu de agua";
+                            return "Espíritu de agua";
                         case Text.Monster_NameWood:
-                            return "Espiritu de madera";
+                            return "Espíritu de madera";
                         case Text.Monster_NameFire:
-                            return "Espiritu de fuego";
+                            return "Espíritu de fuego";
                         case Text.Monster_NameSlime:
-                            return "Espiritu de slime";
+                            return "Espíritu de pantano";
                         case Text.Monster_NameTrainingDummy:
                             return "Muñeco de entrenamiento";
                         case Text.Monster_DescWater:
-                            return "Un espiritu nacido por el resentimiento de los rios de Odsbury.";
+                            return "Un espíritu nacido por el resentimiento de los rios de Odsbury.";
                         case Text.Monster_DescWood:
-                            return "Cuando el bosque fue inundado de maldad estos malignos espiritus de madera nacieron.";
+                            return "Cuando el bosque fue inundado de maldad estos malignos espíritus de madera nacieron.";
                         case Text.Monster_DescFire:
-                            return "Espiritus violentos y salvajes llenos de energia.";
+                            return "Espíritus violentos y salvajes llenos de energia.";
                         case Text.Monster_DescSlime:
                             return "Puede ser tentador tocar a estas criaturas, pero son bastante venenosas.";
                         case Text.Monster_DescTrainingDummy:
@@ -1174,7 +1175,7 @@ namespace Gui
                         case Text.Monster_AbilFire:
                             return "Quemadura - Te incendia y hace daño extra cada cierto tiempo.";
                         case Text.Monster_AbilSlime:
-                            return "Dispara una bol de slime que dificulta tu vision por cierto tiempo.";
+                            return "Dispara una bola de slime que dificulta tu vision por cierto tiempo.";
                         case Text.Monster_AbilTrainingDummy:
                             return "Puede aguantar cualquier golpe.";
                         #endregion
@@ -1224,6 +1225,8 @@ namespace Gui
                         case Text.PlayMode_Train:
                             return "Entrenamiento";
                         #endregion
+                        case Text.Loading:
+                            return "Cargando...";
                         default:
                             return null;
                     }
@@ -1420,7 +1423,7 @@ namespace Gui
                         case Text.Sword_DescOscuridadDemoniaca:
                             return "It was long ago the sword of the great demon Ragnek, until one day a great warrior defeated him and save this sword as his precious reward.";
                         case Text.Sword_DescRebanadoraSlimes:
-                            return "Available when you defeat 75 slimes.";
+                            return "Available when you defeat 75 swamp spirits.";
                         case Text.Sword_DescVolcanora:
                             return "From the depths of the great volcano Kranto filled with the energy from the earth's magma.";
                         case Text.Sword_DescEspadaCristal:
@@ -1692,11 +1695,11 @@ namespace Gui
                         #endregion
                         #region Collectibles
                         case Text.Collectible_NameWaterOrbMini:
-                            return "Small spiritual water orb";
+                            return "Small spíritual water orb";
                         case Text.Collectible_NameWaterOrb:
-                            return "Spiritual water orb";
+                            return "spíritual water orb";
                         case Text.Collectible_NameWaterOrbBig:
-                            return "Great spiritual water orb";
+                            return "Great spíritual water orb";
                         case Text.Collectible_DescWaterOrbMini:
                             return "Contains a bit of the essence of a water spirit.";
                         case Text.Collectible_DescWaterOrb:
@@ -1704,11 +1707,11 @@ namespace Gui
                         case Text.Collectible_DescWaterOrbBig:
                             return "Contains the essence of a water spirit and it's magic power.";
                         case Text.Collectible_NameWoodOrbMini:
-                            return "Small spiritual wood orb";
+                            return "Small spíritual wood orb";
                         case Text.Collectible_NameWoodOrb:
-                            return "Spiritual wood orb";
+                            return "spíritual wood orb";
                         case Text.Collectible_NameWoodOrbBig:
-                            return "Great spiritual wood orb";
+                            return "Great spíritual wood orb";
                         case Text.Collectible_DescWoodOrbMini:
                             return "Contains a bit of the essence of a dark log.";
                         case Text.Collectible_DescWoodOrb:
@@ -1974,6 +1977,8 @@ namespace Gui
                         case Text.PlayMode_Train:
                             return "Training";
                         #endregion
+                        case Text.Loading:
+                            return "Loading...";
                         default:
                             return null;
                     }

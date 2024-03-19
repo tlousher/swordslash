@@ -6,6 +6,8 @@ namespace Character
 {
     public class Stamina : MonoBehaviour
     {
+        private const float StaminaPointThreshold = 0.9f;
+        
         [Header("Components")]
         public GameObject staminaPrefab;
 
@@ -77,8 +79,8 @@ namespace Character
             if (playerStaminaToInt >= staminaPointsParent.childCount) return;
 
             //Adjust the next stamina point to the residue value of the player's stamina
-            staminaPoints[playerStaminaToInt].fillAmount = staminaResidue;
-            staminaPoints[playerStaminaToInt].color = dischargedColor;
+            staminaPoints[playerStaminaToInt].fillAmount = staminaResidue > StaminaPointThreshold ? 1 : staminaResidue;
+            staminaPoints[playerStaminaToInt].color = staminaPoints[playerStaminaToInt].fillAmount > StaminaPointThreshold ? chargedColor : dischargedColor;
         }
     }
 }
