@@ -46,12 +46,15 @@ namespace Enemies
         private bool moving;
         private bool alive;
         private Animator animator;
+        private Vector3 _lastPosition;
 
         // Variables de animacion
         private readonly int damageTriggerHash = Animator.StringToHash("Damage");
         private readonly int attackTriggerHash = Animator.StringToHash("Attack");
         private readonly int moveClipHash = Animator.StringToHash("Base Layer.Move");
         private readonly int deadTriggerHash = Animator.StringToHash("Dead");
+        
+        private static Transform _parent;
 
         private Vector3 GetTarget()
         {
@@ -78,6 +81,12 @@ namespace Enemies
 
             // Get and assign the animator
             animator = GetComponent<Animator>();
+            
+            // Set the parent for the collectibles
+            if (_parent) return;
+            _parent = new GameObject("Collectibles").transform;
+            // Set the parent to the same parent as this
+            _parent.SetParent(transform.parent);
         }
 
         protected virtual void InitializeCollectibles()
@@ -234,6 +243,7 @@ namespace Enemies
         internal virtual void Die()
         {
             if (!alive) return;
+            _lastPosition = transform.position;
             // Plays the die animation
             try
             {
@@ -261,7 +271,14 @@ namespace Enemies
         {
             if (!alive) return;
             //Manage the Spawner monster controll
-            mySpawner.monsterQueue.Dequeue();
+            try
+            {
+                mySpawner.monsterQueue.Dequeue();
+            }
+            catch (InvalidOperationException)
+            {
+                // ignored
+            }
             //Hides the slash aura
             HideAura();
             //Highlights the new monster
@@ -312,8 +329,8 @@ namespace Enemies
             var collectible = orbs[Mathf.RoundToInt(Random.Range(0, orbs.Count - 1))];
 
             //Instatiate a random collectible from that rarity
-            var prefab = Instantiate(collectiblePrefab, transform.parent);
-            prefab.transform.localPosition = transform.localPosition;
+            var prefab = Instantiate(collectiblePrefab, _parent);
+            prefab.transform.localPosition = _lastPosition;
             prefab.GetComponent<Collectible>().data = collectible;
             prefab.GetComponent<SpriteRenderer>().sprite = collectible.sprite;
             //Put that collectible inside the Queue in the gamemaster

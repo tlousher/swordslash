@@ -1201,19 +1201,19 @@ namespace Gui
                         case Text.LevelIntro_DescLevel_ForestThree:
                             return "Protege la aldea mientras se contruyen las defensas.";
                         case Text.LevelIntro_DescLevel_ForestFour:
-                            return "Descripción pendiente...";
+                            return "El bosque oscureció de repente, los árboles estaban quietos y el silencio reinaba.";
                         case Text.LevelIntro_DescLevel_ForestFive:
-                            return "Descripción pendiente...";
+                            return "Encontraron una piedra brillante con un aura malvado. Se acercaron, pero no estaban solos.";
                         case Text.LevelIntro_DescLevel_ForestSix:
-                            return "Descripción pendiente...";
+                            return "Criaturas surgieron del río y los árboles, rodeando al joven y su maestro.";
                         case Text.LevelIntro_DescLevel_ForestSeven:
-                            return "Descripción pendiente...";
+                            return "Batallas agotadoras revelaron que la piedra cambió de color.";
                         case Text.LevelIntro_DescLevel_ForestEight:
-                            return "Descripción pendiente...";
+                            return "De vuelta a la aldea, descubrieron que la capital fue invadida por monstruos oscuros.";
                         case Text.LevelIntro_DescLevel_ForestNine:
-                            return "Descripción pendiente...";
+                            return "Decidieron ir a la capital en busca de respuestas sobre el padre del joven.";
                         case Text.LevelIntro_DescLevel_ForestTen:
-                            return "Descripción pendiente...";
+                            return "En el bosque, enfréntate a oleadas interminables de monstruos. Pelea hasta que ya no puedas más.";
                         #endregion
                         #region PlayMode
                         case Text.PlayMode_Horde:
@@ -1953,19 +1953,19 @@ namespace Gui
                         case Text.LevelIntro_DescLevel_ForestThree:
                             return "Protect the village while they build up the defenses.";
                         case Text.LevelIntro_DescLevel_ForestFour:
-                            return "Description on process...";
+                            return "The forest suddenly darkened, the trees stood still, and silence reigned";
                         case Text.LevelIntro_DescLevel_ForestFive:
-                            return "Description on process...";
+                            return "They found a glowing stone with an evil aura. They approached, but weren't alone.";
                         case Text.LevelIntro_DescLevel_ForestSix:
-                            return "Description on process...";
+                            return "Creatures emerged from the river and trees, surrounding the young man and his master.";
                         case Text.LevelIntro_DescLevel_ForestSeven:
-                            return "Description on process...";
+                            return "Exhausting battles revealed the stone had changed color.";
                         case Text.LevelIntro_DescLevel_ForestEight:
-                            return "Description on process...";
+                            return "Back in the village, they learned the capital was invaded by dark monsters.";
                         case Text.LevelIntro_DescLevel_ForestNine:
-                            return "Description on process...";
+                            return "They decided to head to the capital seeking answers about the young man's father.";
                         case Text.LevelIntro_DescLevel_ForestTen:
-                            return "Description on process...";
+                            return "In the forest, face endless waves of monsters. Fight until you can't anymore.";
                         #endregion
                         #region PlayMode
                         case Text.PlayMode_Horde:

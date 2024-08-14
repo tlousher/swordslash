@@ -2,39 +2,39 @@
 using Misc;
 using UnityEngine;
 
-public class SlimeBall : MonoBehaviour
+namespace Enemies
 {
-    [Header("Stats")]
-    public float slimeDuration;     
-    public float speed;   
-    [Header("Components")]
-    public GameObject slimeScreen;
-
-    private Vector3 startPosition;
-    private float timePassed;
-
-    private void Awake()
+    public class SlimeBall : MonoBehaviour
     {
-        timePassed = 0;
-        startPosition = transform.position;
-    }
+        [Header("Stats")]
+        public float slimeDuration;     
+        public float speed;   
+        [Header("Components")]
+        public GameObject slimeScreen;
 
-    void Update()
-    {
-        if (GameManager.instance.IsPlaying)
+        private Vector3 _startPosition;
+        private float _timePassed;
+
+        private void Awake()
         {
-            transform.position = MathParabola.Parabola(startPosition, Player.instance.transform.position, 2f, timePassed);
-            timePassed += Time.deltaTime * speed / 10; 
+            _timePassed = 0;
+            _startPosition = transform.position;
         }
-    }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.collider.tag == "Player")
+        private void Update()
         {
+            if (!GameManager.instance.IsPlaying) return;
+            transform.position = MathParabola.Parabola(_startPosition, Player.instance.transform.position, 2f, _timePassed);
+            _timePassed += Time.deltaTime * speed / 10;
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (!collision.collider.CompareTag("Player")) return;
             //Crea la pantalla de slime
-            GameObject newScreen = Instantiate(slimeScreen, GameManager.instance.HUD.transform);
-            Destroy(newScreen, slimeDuration);
+            var newScreen = Instantiate(slimeScreen, GameManager.instance.HUD.transform);
+            var slimeScreenComponent = newScreen.GetComponent<SlimeScreen>();
+            slimeScreenComponent.Initialize(slimeDuration);
 
             //Destruye la bala
             Destroy(gameObject);
