@@ -1,4 +1,8 @@
-﻿namespace Enemies
+﻿using Collections;
+using Vault;
+using static Achievements.Achievements;
+
+namespace Enemies
 {
     public class WaterEnemy : Enemy
     {
@@ -8,10 +12,16 @@
             collectibles.Add(Collectibles.GetData(Collectibles.CollectibleName.WaterOrb));
             collectibles.Add(Collectibles.GetData(Collectibles.CollectibleName.WaterOrbBig));
         }
+        
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            DiscoverMonster(Monsters.MonsterName.Water);
+        }
 
         protected override void AchievementCounterPlus()
         {
-            PlayerPrefs2.IncreaseAchievementProgress(Achievements.Achievements.AchievementID(Achievements.Achievements.AchievementName.WaterSlayerI));
+            PlayerPrefs2.IncreaseAchievementProgress(AchievementName.WaterSlayerI);
         }
     }
 }

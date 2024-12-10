@@ -132,6 +132,7 @@ namespace Misc
             //Updates the life of the player
             UpdateLife();
 
+            if (SceneMaster.levelData == null) return;
             //Check defeat
             if (Player.instance.healthPoints < 1)
             {

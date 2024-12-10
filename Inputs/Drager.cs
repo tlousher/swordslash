@@ -6,6 +6,7 @@ public class Drager : InputModifier
     [Header("Stats")]
     public int gap;
     public bool vertical = false;
+    [SerializeField] private float speed;
     [Header("Components")]
     public GameObject content;
 
@@ -14,28 +15,11 @@ public class Drager : InputModifier
     private float dragMovement;
     private RectTransform contentRect;
 
-    private float ChildSize
-    {
-        get
-        {
-            return vertical ? content.transform.GetChild(0).GetComponent<RectTransform>().sizeDelta.y : content.transform.GetChild(0).GetComponent<RectTransform>().sizeDelta.x;
-        }
-    }
+    private float ChildSize => vertical ? content.transform.GetChild(0).GetComponent<RectTransform>().sizeDelta.y : content.transform.GetChild(0).GetComponent<RectTransform>().sizeDelta.x;
 
-    private float MaxPosition
-    {
-        get
-        {
-            return (ChildSize + gap) * (vertical ? content.transform.childCount : -content.transform.childCount) + (vertical ? -GetComponent<RectTransform>().sizeDelta.y : GetComponent<RectTransform>().sizeDelta.x);
-        }
-    }
-    private int MinPosition
-    {
-        get
-        {
-            return vertical ? -20 : 20;
-        }
-    }
+    private float MaxPosition => (ChildSize + gap) * (vertical ? content.transform.childCount - 1 : -content.transform.childCount + 1) + (vertical ? -content.GetComponent<RectTransform>().sizeDelta.y : content.GetComponent<RectTransform>().sizeDelta.x);
+
+    private int MinPosition => vertical ? -20 : 20;
 
     private void Awake()
     {
@@ -53,11 +37,11 @@ public class Drager : InputModifier
 
     public void DragContent()
     {
-        Vector2 delta = Input.GetTouch(0).deltaPosition;
-        dragMovement = (vertical ? delta.y : delta.x) * 3;
+        var delta = Input.GetTouch(0).deltaPosition;
+        dragMovement = vertical ? delta.y : delta.x;
 
         //float newPosition = initialPosition.x + dragMovement;
-        float newPosition = (vertical ? contentRect.anchoredPosition.y : contentRect.anchoredPosition.x) + (vertical ? delta.y : delta.x) * 3;
+        var newPosition = (vertical ? contentRect.anchoredPosition.y : contentRect.anchoredPosition.x) + (vertical ? delta.y : delta.x) * speed;
         if (CheckBounds(newPosition))
         {
             //Applys that movement to the content position

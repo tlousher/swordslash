@@ -36,20 +36,10 @@ public class WindowVictory : Window
         #endregion
         #region 2.Collectibles
         //Saves all the changes on collectibles and coins
-        Collectible.CollectibleData[] collectibles = GameManager.instance.collectibles.ToArray();
-        foreach (Collectible.CollectibleData collectible in collectibles)
+        var collectibles = GameManager.instance.collectibles.ToArray();
+        foreach (var collectible in collectibles)
         {
             PlayerPrefs2.Coins += collectible.price;
-            if (collectible.collectionState == CollectionPrefs.CollectionState.Missing)
-            {
-                CollectionPrefs.SetCollectionState(collectible.itemID, CollectionPrefs.CollectionState.Discovered);
-                PlayerPrefs2.IncreaseAchievementProgress(Achievements.Achievements.AchievementID(Achievements.Achievements.AchievementName.Gatherer));
-            }
-        }
-        //Saves the monsters discovered on this level
-        foreach (Monsters.MonsterData monster in GameManager.instance.newMonsters)
-        {
-            CollectionPrefs.SetCollectionState(monster.itemID, CollectionPrefs.CollectionState.Discovered);
         }
         #endregion
         #region 3.Stars
@@ -66,19 +56,19 @@ public class WindowVictory : Window
             switch (SceneMaster.levelData.area)
             {
                 case Map.Area.Forest:
-                    PlayerPrefs2.IncreaseAchievementProgress(Achievements.Achievements.AchievementID(Achievements.Achievements.AchievementName.PerfectionistI));
+                    PlayerPrefs2.IncreaseAchievementProgress(Achievements.Achievements.AchievementName.PerfectionistI);
                     break;
                 case Map.Area.Mountain:
-                    PlayerPrefs2.IncreaseAchievementProgress(Achievements.Achievements.AchievementID(Achievements.Achievements.AchievementName.PerfectionistII));
+                    PlayerPrefs2.IncreaseAchievementProgress(Achievements.Achievements.AchievementName.PerfectionistII);
                     break;
                 case Map.Area.Volcano:
-                    PlayerPrefs2.IncreaseAchievementProgress(Achievements.Achievements.AchievementID(Achievements.Achievements.AchievementName.PerfectionistIII));
+                    PlayerPrefs2.IncreaseAchievementProgress(Achievements.Achievements.AchievementName.PerfectionistIII);
                     break;
                 case Map.Area.Cavern:
-                    PlayerPrefs2.IncreaseAchievementProgress(Achievements.Achievements.AchievementID(Achievements.Achievements.AchievementName.PerfectionistIV));
+                    PlayerPrefs2.IncreaseAchievementProgress(Achievements.Achievements.AchievementName.PerfectionistIV);
                     break;
                 case Map.Area.Capital:
-                    PlayerPrefs2.IncreaseAchievementProgress(Achievements.Achievements.AchievementID(Achievements.Achievements.AchievementName.PerfectionistV));
+                    PlayerPrefs2.IncreaseAchievementProgress(Achievements.Achievements.AchievementName.PerfectionistV);
                     break;
                 default:
                     break;
@@ -94,7 +84,7 @@ public class WindowVictory : Window
 
         if (GameManager.instance.monstersKilled == 0)
         {
-            PlayerPrefs2.IncreaseAchievementProgress(Achievements.Achievements.AchievementID(Achievements.Achievements.AchievementName.Pacifist));
+            PlayerPrefs2.IncreaseAchievementProgress(Achievements.Achievements.AchievementName.Pacifist);
         }
     }
 

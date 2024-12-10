@@ -11,7 +11,7 @@ namespace Misc
 {
     public class SceneMaster : MonoBehaviour
     {
-        private const float TimeBetweenScenes = 2f;
+        private const float TimeBetweenScenes = 0.8f;
         private readonly int exitHash = Animator.StringToHash("Exit");
 
         [Header("Prefabs")]
@@ -22,11 +22,13 @@ namespace Misc
         public GameObject collectionsPrefab;
         public GameObject achievementsPrefab;
         public GameObject transitionCanvas;
+        public GameObject achievementPopUpPrefab;
         [Header("SFX")]
         public AudioSource audioSource;
         public AudioClip error;
         public AudioClip notice;
         public AudioClip warning;
+        public AudioClip achievementSfx;
 
         public static Levels.Level_Data levelData;
         public static SceneMaster instance;
@@ -71,6 +73,13 @@ namespace Misc
         {
             var achievements = Instantiate(achievementsPrefab).GetComponent<Window>();
             achievements.mainCanvas = callerCanvas;
+        }
+        public void ShowAchievementPopUp(Achievement.Achievement_Data data)
+        {
+            var achievement = Instantiate(achievementPopUpPrefab);
+            achievement.GetComponent<Achievement>().data = data;
+            achievement.GetComponent<Window>().mainCanvas = FindObjectOfType<Canvas>().gameObject;
+            PlayClip(MessageSfx.Other, achievementSfx);
         }
 
         public void ShowMessage(string title, string msg, MessageSfx messageSfx, AudioClip clip = null)

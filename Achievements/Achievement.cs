@@ -18,27 +18,41 @@ public class Achievement : MonoBehaviour
     public GameObject completion;
     [Header("Advanced information")]
     public Achievement_Data data;
+    [Header("PopUp")]
+    [SerializeField] private bool selfDestroy = false;
+    [SerializeField] private float timeToDestroy = 4f;
+    
 
     private const int MaxFill = 720;
 
     private void Start()
     {
-        title.text = data.title;
-        description.text = data.description;
-        rewardQuantity.text = $"x{data.rewardQuantity}";
-        icon.sprite = data.icon;
-        rewardIcon.sprite = data.rewardIcon;
-        progressBar.fillAmount = Mathf.Clamp(1 / data.goal * data.Progress, 0, 1);
-        numericProgress.text = $"{data.Progress}/{data.goal}";
-        if (data.IsComplete)
+        if (!selfDestroy)
         {
-            button.interactable = false;
-            completion.SetActive(true);
+            title.text = data.title;
+            description.text = data.description;
+            rewardQuantity.text = $"x{data.rewardQuantity}";
+            icon.sprite = data.icon;
+            rewardIcon.sprite = data.rewardIcon;
+            progressBar.fillAmount = Mathf.Clamp(1 / data.goal * data.Progress, 0, 1);
+            numericProgress.text = $"{data.Progress}/{data.goal}";
+            if (data.IsComplete)
+            {
+                button.interactable = false;
+                completion.SetActive(true);
+            }
+            else
+            {
+                button.interactable = true;
+                completion.SetActive(false);
+            }
         }
         else
         {
-            button.interactable = true;
-            completion.SetActive(false);
+            title.text = data.title;
+            description.text = data.description;
+            icon.sprite = data.icon;
+            Destroy(gameObject, timeToDestroy);
         }
     }
 
@@ -69,40 +83,28 @@ public class Achievement : MonoBehaviour
         public Sprite rewardIcon;
         public int goal;
 
-        public bool IsComplete
-        {
-            get
-            {
-                return PlayerPrefs2.IsAchievementComplete(achievementID);
-            }
-        }
-        
-        public int Progress
-        {
-            get
-            {
-                return PlayerPrefs2.GetAchievementProgress(achievementProgressID);
-            }
-        }
+        public bool IsComplete => PlayerPrefs2.IsAchievementComplete(achievementID);
+
+        public int Progress => PlayerPrefs2.GetAchievementProgress(achievementProgressID);
 
         public void Complete()
         {
-            PlayerPrefs2.IncreaseAchievementProgress(Achievements.Achievements.AchievementID(Achievements.Achievements.AchievementName.GameLover));
+            PlayerPrefs2.IncreaseAchievementProgress(Achievements.Achievements.AchievementName.GameLover);
             PlayerPrefs2.AchievementComplete(achievementID);
-            if (rewardItemID.Equals(Achievements.Achievements.CoinsReward))
+            switch (rewardItemID)
             {
-                PlayerPrefs2.Coins += rewardQuantity;
-                SceneMaster.instance.ShowMessage("Logro completado", $"Felicitaciones por completar \"{title}\", has ganado {rewardQuantity} monedas.", SceneMaster.MessageSfx.Notice);
-            }
-            else if (rewardItemID.Equals(Achievements.Achievements.GemsReward))
-            {
-                PlayerPrefs2.Gems += rewardQuantity;
-                SceneMaster.instance.ShowMessage("Logro completado", $"Felicitaciones por completar \"{title}\", has ganado {rewardQuantity} gemas.", SceneMaster.MessageSfx.Notice);
-            }
-            else
-            {
-                PlayerPrefs2.SetItemState(rewardItemID, ItemData.ItemState.Acquired);
-                SceneMaster.instance.ShowMessage("Logro completado", $"Felicitaciones por completar \"{title}\", puedes encontrar tu nuevo equipo en la tienda.", SceneMaster.MessageSfx.Notice);
+                case Achievements.Achievements.CoinsReward:
+                    PlayerPrefs2.Coins += rewardQuantity;
+                    SceneMaster.instance.ShowMessage("Logro completado", $"Felicitaciones por completar \"{title}\", has ganado {rewardQuantity} monedas.", SceneMaster.MessageSfx.Notice);
+                    break;
+                case Achievements.Achievements.GemsReward:
+                    PlayerPrefs2.Gems += rewardQuantity;
+                    SceneMaster.instance.ShowMessage("Logro completado", $"Felicitaciones por completar \"{title}\", has ganado {rewardQuantity} gemas.", SceneMaster.MessageSfx.Notice);
+                    break;
+                default:
+                    PlayerPrefs2.SetItemState(rewardItemID, ItemData.ItemState.Acquired);
+                    SceneMaster.instance.ShowMessage("Logro completado", $"Felicitaciones por completar \"{title}\", puedes encontrar tu nuevo equipo en la tienda.", SceneMaster.MessageSfx.Notice);
+                    break;
             }
         }
     }

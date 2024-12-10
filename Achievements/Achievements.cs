@@ -83,7 +83,7 @@ namespace Achievements
                     return new Achievement.Achievement_Data
                     {
                         achievementID = AchievementID(AchievementName.WaterSlayerI),
-                        achievementProgressID = AchievementID(AchievementName.WaterSlayerII),
+                        achievementProgressID = AchievementID(AchievementName.WaterSlayerI),
                         title = Language.GetText(Language.Text.Achievement_NameWaterSlayerI),
                         description = Language.GetText(Language.Text.Achievement_DescWaterSlayerI),
                         defaultDisplay = true,

@@ -1,49 +1,62 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Character;
 using Misc;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Inputs
 {
     public class Slasher : MonoBehaviour
     {
+        public const float DirectionThreshold = 0.35f;
+        
         [Header("Stats")]
         public float trailPositionZ = 1;
         public float minimumSlashDistance = 100;
+        public float minimumDeltaDistance = 100;
+        [SerializeField] private float swordSpeed = 1;
         public bool createSlash;
         [Header("Components")]
         public GameObject enemies;
+        [SerializeField] private Transform sword;
+        [SerializeField] private ParticleSystem tiredParticle;
         [Header("Prefabs")]
         public GameObject slashTrail;
         public GameObject slashParticle;
         public GameObject whatParticle;
         public GameObject notSlashParticle;
 
-        private Vector2 touchStartPosition;
-        private Vector2 touchEndedPosition;
-        private GameObject myTrail;
-        private Camera mainCamera;
-        private bool isSlashing;
+        private Vector2 _touchStartPosition;
+        private Vector2 _touchEndedPosition;
+        private List<Vector2> _touchPositions = new();
+        private GameObject _myTrail;
+        private Camera _mainCamera;
+        private bool _isSlashing;
 
         public static event Action<SlashDirections> OnSlash = delegate { };
 
         public enum SlashDirections
         {
-            Down,
-            Up,
             Right,
-            Left,
-            DownRight,
-            DownLeft,
             UpRight,
+            Up,
             UpLeft,
+            Left,
+            DownLeft,
+            Down,
+            DownRight,
             Bad,
             Joker
         }
-        
+
+        public static int SlashDirectionToAngle(SlashDirections direction) =>
+            (int) direction * 45;
+
         private void Start()
         {
-            mainCamera = Camera.main;
+            _mainCamera = Camera.main;
         }
 
         private void Update()
@@ -67,60 +80,116 @@ namespace Inputs
                 case TouchPhase.Began:
                 {
                     // Logs the position when the touch began
-                    touchStartPosition = touch.position;
-                    isSlashing = false;
+                    _touchStartPosition = touch.position;
+                    _isSlashing = false;
 
+                    // Just continue to create the trail if the createSlash is false
+                    if (createSlash) break;
+                    
                     // If there is a Trail we destroy it and create a new one
-                    if (myTrail)
+                    if (_myTrail)
                     {
-                        Destroy(myTrail);
+                        Destroy(_myTrail);
                     }
 
-                    myTrail = Instantiate(slashTrail,
-                        mainCamera.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y,
+                    _myTrail = Instantiate(slashTrail,
+                        _mainCamera.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y,
                             trailPositionZ)), Quaternion.identity, transform.parent);
                     break;
                 }
                 case TouchPhase.Moved:
                 {
-                    // If the finger has moved long enough then we change the slashes start
-                    if (Vector2.Distance(touchStartPosition, touch.position) > minimumSlashDistance)
+                    // If the finger has moved long enough then we start slashing
+                    var distance = Vector2.Distance(_touchStartPosition, touch.position);
+                    if (!_isSlashing && distance > minimumSlashDistance)
                     {
-                        touchStartPosition = touch.position;
-                        isSlashing = true;
+                        _isSlashing = true;
                     }
+
+                    // Debug.Log($"Touch moved delta position: {touch.deltaPosition}");
+                    sword.Rotate(Vector3.forward, -touch.deltaPosition.x * swordSpeed);
+                    sword.Rotate(Vector3.right, touch.deltaPosition.y * swordSpeed);
                     
-                    // We start moving the trail
-                    myTrail.transform.position =
-                        mainCamera.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y,
-                            trailPositionZ));
+                    // If the finger has moved too little then we reset the start position
+                    if (touch.deltaPosition.magnitude < minimumDeltaDistance)
+                    {
+                        _touchStartPosition = touch.position;
+                        _touchPositions.Clear();
+                    }
+                    else
+                    {
+                        _touchPositions.Add(touch.deltaPosition);
+                    }
+
+                    if (!createSlash)
+                    {
+                        // We start moving the trail
+                        _myTrail.transform.position =
+                            _mainCamera.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y,
+                                trailPositionZ));
+                    }
                     break;
                 }
                 case TouchPhase.Ended:
                 {
-                    // We start moving the trail
-                    myTrail.transform.position =
-                        mainCamera.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y,
-                            trailPositionZ));
+                    if (!createSlash)
+                    {
+                        // We start moving the trail
+                        _myTrail.transform.position =
+                            _mainCamera.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y,
+                                trailPositionZ));
+                    }
                     // Logs the position when the touch ends
-                    touchEndedPosition = touch.position;
+                    _touchEndedPosition = touch.position;
 
                     // Calculates distance of touch
-                    if (!isSlashing)
+                    if (!_isSlashing)
                     {
                         Debug.Log("Distance was not long enough");
                         return;
                     }
 
-                    // Creates a slash depending on the direction needed
+                    // Creates a slash depending on the direction needed if the player has enough stamina
                     if (Player.instance.stamina >= 1)
                     {
                         // Calculates the vector formed from the last start and this finish phase
-                        var direction = VectorToSlashDirections((touchEndedPosition - touchStartPosition).normalized);
+                        var meanDirection = GetMeanDirection();
+                        var direction = VectorToSlashDirections(meanDirection);
 
-                        if (direction == SlashDirections.Bad)
+                        switch (direction)
                         {
-                            Debug.Log($"Bad slash {(touchEndedPosition - touchStartPosition).normalized}");
+                            case SlashDirections.Down:
+                                Debug.Log("Slash is Down");
+                                break;
+                            case SlashDirections.Up:
+                                Debug.Log("Slash is Up");
+                                break;
+                            case SlashDirections.Right:
+                                Debug.Log("Slash is Right");
+                                break;
+                            case SlashDirections.Left:
+                                Debug.Log("Slash is Left");
+                                break;
+                            case SlashDirections.DownRight:
+                                Debug.Log("Slash is DownRight");
+                                break;
+                            case SlashDirections.DownLeft:
+                                Debug.Log("Slash is DownLeft");
+                                break;
+                            case SlashDirections.UpRight:
+                                Debug.Log("Slash is UpRight");
+                                break;
+                            case SlashDirections.UpLeft:
+                                Debug.Log("Slash is UpLeft");
+                                break;
+                            case SlashDirections.Bad:
+                                Debug.Log($"Bad slash {meanDirection}");
+                                break;
+                            case SlashDirections.Joker:
+                                Debug.Log("Slash is Joker");
+                                break;
+                            default:
+                                throw new ArgumentOutOfRangeException();
                         }
                         
                         // Calls the sender method
@@ -165,6 +234,15 @@ namespace Inputs
                             } 
                         }
                     }
+                    else
+                    {
+                        // If the player has no stamina we play the tired particle
+                        if (tiredParticle.isPlaying)
+                        {
+                            tiredParticle.Stop();
+                        }
+                        tiredParticle.Play();
+                    }
                     #endregion
 
                     break;
@@ -176,6 +254,12 @@ namespace Inputs
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+
+        private Vector2 GetMeanDirection()
+        {
+            var mean = _touchPositions.Aggregate(Vector2.zero, (current, touchPosition) => current + touchPosition);
+            return mean.normalized;
         }
 
         private static SlashDirections VectorToSlashDirections(Vector2 normalizedDir)
@@ -207,42 +291,42 @@ namespace Inputs
         #region Check Slashes
         private static bool IsUpSlash(Vector2 direction)
         {
-            return direction.x < 0.3 && direction.x > -0.3 && direction.y > 0.3;
+            return direction.x is < DirectionThreshold and > -DirectionThreshold && direction.y > DirectionThreshold;
         }
 
         private static bool IsDownSlash(Vector2 direction)
         {
-            return direction.x < 0.3 && direction.x > -0.3 && direction.y < -0.3;
+            return direction.x is < DirectionThreshold and > -DirectionThreshold && direction.y < -DirectionThreshold;
         }
 
         private static bool IsLeftSlash(Vector2 direction)
         {
-            return direction.y < 0.3 && direction.y > -0.3 && direction.x < -0.3;
+            return direction.y is < DirectionThreshold and > -DirectionThreshold && direction.x < -DirectionThreshold;
         }
 
         private static bool IsRightSlash(Vector2 direction)
         {
-            return direction.y < 0.3 && direction.y > -0.3 && direction.x > 0.3;
+            return direction.y is < DirectionThreshold and > -DirectionThreshold && direction.x > DirectionThreshold;
         }
 
         private static bool IsUpLeftSlash(Vector2 direction)
         {
-            return direction.x < -0.3 && direction.y > 0.3;
+            return direction is { x: < -DirectionThreshold, y: > DirectionThreshold };
         }
 
         private static bool IsUpRightSlash(Vector2 direction)
         {
-            return direction.x > 0.3 && direction.y > 0.3;
+            return direction is { x: > DirectionThreshold, y: > DirectionThreshold };
         }
 
         private static bool IsDownLeftSlash(Vector2 direction)
         {
-            return direction.x < -0.3 && direction.y < -0.3;
+            return direction is { x: < -DirectionThreshold, y: < -DirectionThreshold };
         }
 
         private static bool IsDownRightSlash(Vector2 direction)
         {
-            return direction.x > 0.3 && direction.y < -0.3;
+            return direction is { x: > DirectionThreshold, y: < -DirectionThreshold };
         }
         #endregion
 

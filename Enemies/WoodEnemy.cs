@@ -1,4 +1,6 @@
-﻿namespace Enemies
+﻿using Vault;
+
+namespace Enemies
 {
     public class WoodEnemy : Enemy
     {
@@ -8,10 +10,16 @@
             collectibles.Add(Collectibles.GetData(Collectibles.CollectibleName.WoodOrb));
             collectibles.Add(Collectibles.GetData(Collectibles.CollectibleName.WoodOrbBig));
         }
+        
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            DiscoverMonster(Monsters.MonsterName.Wood);
+        }
 
         protected override void AchievementCounterPlus()
         {
-            PlayerPrefs2.IncreaseAchievementProgress(Achievements.Achievements.AchievementID(Achievements.Achievements.AchievementName.WoodSlayerI));
+            PlayerPrefs2.IncreaseAchievementProgress(Achievements.Achievements.AchievementName.WoodSlayerI);
         }
     }
 }

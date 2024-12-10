@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Vault;
 
 namespace Enemies
 {
@@ -23,10 +24,16 @@ namespace Enemies
             var ballPosition = myTransform.position + Vector3.up * 1.3f;
             Instantiate(slimeBall, ballPosition, myTransform.rotation, myTransform.parent);
         }
+        
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            DiscoverMonster(Monsters.MonsterName.Slime);
+        }
 
         protected override void AchievementCounterPlus()
         {
-            PlayerPrefs2.IncreaseAchievementProgress(Achievements.Achievements.AchievementID(Achievements.Achievements.AchievementName.SlimeSlayerI));
+            PlayerPrefs2.IncreaseAchievementProgress(Achievements.Achievements.AchievementName.SlimeSlayerI);
         }
     }
 }

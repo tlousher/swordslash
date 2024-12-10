@@ -601,7 +601,7 @@ public class Shop : MonoBehaviour
             ShopFrame.selectedFrame.UpdateFrame();
             SelectItem(selectedItem);
             GetComponent<AudioSource>().PlayOneShot(purchaseClip);
-            PlayerPrefs2.IncreaseAchievementProgress(Achievements.Achievements.AchievementID(Achievements.Achievements.AchievementName.CollectionistI));
+            PlayerPrefs2.IncreaseAchievementProgress(Achievements.Achievements.AchievementName.CollectionistI);
         }
         else
         {

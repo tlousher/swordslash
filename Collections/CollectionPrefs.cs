@@ -70,11 +70,11 @@ namespace Collections
 
         public static List<Monsters.MonsterData> GetMonstersCollection()
         {
-            List<Monsters.MonsterData> monstersCollection = new List<Monsters.MonsterData>();
+            var monstersCollection = new List<Monsters.MonsterData>();
 
-            for (int i = 0; i < Monsters.Count; i++)
+            for (var i = 0; i < Monsters.Count; i++)
             {
-                Monsters.MonsterData monster = Monsters.GetData((Monsters.MonsterName)i);
+                var monster = Monsters.GetData((Monsters.MonsterName)i);
                 monster.collectionState = GetCollectionState(monster.itemID, monster.collectionState);
                 monstersCollection.Add(monster);
             }

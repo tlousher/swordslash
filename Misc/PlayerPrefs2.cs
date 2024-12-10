@@ -1,14 +1,26 @@
 ﻿using Gui;
 using Items;
 using Items.Potions;
+using Misc;
 using UnityEngine;
 using Vault;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public static class PlayerPrefs2
 {
     public const float DificultyCurve = 30;
     public const int MusicMin = -35;
     public const int SoundMin = -35;
+
+#if UNITY_EDITOR
+    [MenuItem("PlayerPrefs/Clear")]
+    public static void ClearPlayerPrefs()
+    {
+        PlayerPrefs.DeleteAll();
+    }
+#endif
 
     #region Global
     public static Language.Languages SelectedLanguage
@@ -232,9 +244,15 @@ public static class PlayerPrefs2
         PlayerPrefs.SetInt($"AchivementProgress_{achievementID}", value);
     }
 
-    public static void IncreaseAchievementProgress(string achievementID, int value = 1)
+    public static void IncreaseAchievementProgress(Achievements.Achievements.AchievementName achievement, int value = 1)
     {
-        PlayerPrefs.SetInt($"AchivementProgress_{achievementID}", GetAchievementProgress(achievementID) + value);
+        var achievementID = Achievements.Achievements.AchievementID(achievement);
+        var progress = GetAchievementProgress(achievementID);
+        PlayerPrefs.SetInt($"AchivementProgress_{achievementID}", progress + value);
+        var achievementData = Achievements.Achievements.GetData(Achievements.Achievements.AchievementName.WaterSlayerI);
+
+        if (progress < achievementData.goal) return;
+        SceneMaster.instance.ShowAchievementPopUp(achievementData);
     }
     #endregion
 

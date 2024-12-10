@@ -25,6 +25,11 @@ namespace Enemies
         [Range(2, 8)]
         public float speed = 2;
         public List<Slasher.SlashDirections> validDirections;
+        [Header("Slash Particles")]
+        [SerializeField] private Transform slashParticlesParent;
+        [SerializeField] private GameObject goodSlashParticles;
+        [SerializeField] private GameObject badSlashParticles;
+        
         [Header("Components")]
         public GameObject collectiblePrefab;
         public Material normalMaterial;
@@ -76,9 +81,6 @@ namespace Enemies
             collectibles = new List<Collectible.CollectibleData>();
             InitializeCollectibles();
 
-            // Asign this enemy as delegate for slashes
-            Slasher.OnSlash += DetectSlash;
-
             // Get and assign the animator
             animator = GetComponent<Animator>();
             
@@ -87,6 +89,26 @@ namespace Enemies
             _parent = new GameObject("Collectibles").transform;
             // Set the parent to the same parent as this
             _parent.SetParent(transform.parent);
+        }
+
+        private void OnDisable()
+        {
+            // Remove this enemy as delegate for slashes
+            Slasher.OnSlash -= DetectSlash;
+        }
+
+        protected virtual void OnEnable()
+        {
+            // Asign this enemy as delegate for slashes
+            Slasher.OnSlash += DetectSlash;
+        }
+        
+        protected static void DiscoverMonster(Monsters.MonsterName discoveryName)
+        {
+            var monsterData = Monsters.GetData(discoveryName);
+            if (monsterData.collectionState == CollectionPrefs.CollectionState.Discovered) return;
+            
+            CollectionPrefs.SetCollectionState(monsterData.itemID, CollectionPrefs.CollectionState.Discovered);
         }
 
         protected virtual void InitializeCollectibles()
@@ -129,11 +151,11 @@ namespace Enemies
             moving = animator.GetCurrentAnimatorStateInfo(0).fullPathHash == moveClipHash;
 
             if (!GameManager.instance.IsPlaying || !alive) return;
-            if (transform.position.z < mySpawner.firstMonster.transform.position.z)
+            if (mySpawner != null && transform.position.z < mySpawner.firstMonster.transform.position.z)
             {
                 mySpawner.firstMonster = gameObject;
             }
-            if (mySpawner.firstMonster.Equals(gameObject) && transform.position.y < Player.instance.sword.RangePositionY)
+            if ((mySpawner == null || mySpawner.firstMonster.Equals(gameObject)) && transform.position.y < Player.instance.sword.RangePositionY)
             {
                 inRange = true;
                 ShowAura();
@@ -144,7 +166,10 @@ namespace Enemies
                 HideAura();
             }
 
-            Move();
+            if (pathNodes != null)
+            {
+                Move();
+            }
 
             GetComponent<SpriteRenderer>().sortingOrder = Mathf.FloorToInt(transform.position.y) * -1;
         }
@@ -201,8 +226,18 @@ namespace Enemies
 
         private void DetectSlash(Slasher.SlashDirections direction)
         {
-            if (!alive) return;
+            if (!alive || !isActiveAndEnabled) return;
+            
             var goodDirection = validDirections.Contains(Slasher.SlashDirections.Joker) || validDirections.Contains(direction);
+
+            if (inRange)
+            {
+                var slashParticles = Instantiate(goodDirection ? goodSlashParticles : badSlashParticles, Vector3.zero, Quaternion.identity, slashParticlesParent);
+                
+                slashParticles.transform.localPosition = Vector3.zero;
+                slashParticles.transform.localRotation = Quaternion.Euler(0, 0, Slasher.SlashDirectionToAngle(direction));
+                Destroy(slashParticles, 1.3f);
+            }
 
             if (!inRange || !goodDirection) return;
             Damage(direction);
@@ -243,6 +278,11 @@ namespace Enemies
         internal virtual void Die()
         {
             if (!alive) return;
+            if (transform == null)
+            {
+                Debug.Log("The monster is null");
+                return;
+            }
             _lastPosition = transform.position;
             // Plays the die animation
             try
@@ -295,19 +335,19 @@ namespace Enemies
             switch (monsterName)
             {
                 case Monsters.MonsterName.Water:
-                    PlayerPrefs2.IncreaseAchievementProgress(Achievements.Achievements.AchievementID(Achievements.Achievements.AchievementName.WaterSlayerI));
+                    PlayerPrefs2.IncreaseAchievementProgress(Achievements.Achievements.AchievementName.WaterSlayerI);
                     break;
                 case Monsters.MonsterName.Wood:
-                    PlayerPrefs2.IncreaseAchievementProgress(Achievements.Achievements.AchievementID(Achievements.Achievements.AchievementName.WoodSlayerI));
+                    PlayerPrefs2.IncreaseAchievementProgress(Achievements.Achievements.AchievementName.WoodSlayerI);
                     break;
                 case Monsters.MonsterName.Fire:
-                    PlayerPrefs2.IncreaseAchievementProgress(Achievements.Achievements.AchievementID(Achievements.Achievements.AchievementName.FireSlayerI));
+                    PlayerPrefs2.IncreaseAchievementProgress(Achievements.Achievements.AchievementName.FireSlayerI);
                     break;
                 case Monsters.MonsterName.Slime:
-                    PlayerPrefs2.IncreaseAchievementProgress(Achievements.Achievements.AchievementID(Achievements.Achievements.AchievementName.SlimeSlayerI));
+                    PlayerPrefs2.IncreaseAchievementProgress(Achievements.Achievements.AchievementName.SlimeSlayerI);
                     break;
                 case Monsters.MonsterName.Training:
-                    PlayerPrefs2.IncreaseAchievementProgress(Achievements.Achievements.AchievementID(Achievements.Achievements.AchievementName.TrainingManiac));
+                    PlayerPrefs2.IncreaseAchievementProgress(Achievements.Achievements.AchievementName.TrainingManiac);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -336,6 +376,13 @@ namespace Enemies
             //Put that collectible inside the Queue in the gamemaster
             GameManager.instance.collectibles.Enqueue(collectible);
             GameManager.instance.collectiblesStacks.SendMessage("CollectibleDrop", collectible.sprite);
+            
+            // Add the collectible to the collection
+            if (CollectionPrefs.GetCollectionState(collectible.itemID) !=
+                CollectionPrefs.CollectionState.Missing) return;
+            
+            PlayerPrefs2.IncreaseAchievementProgress(Achievements.Achievements.AchievementName.Gatherer);
+            CollectionPrefs.SetCollectionState(collectible.itemID, CollectionPrefs.CollectionState.Discovered);
         }
 
         protected void ShowAura()

@@ -14,18 +14,18 @@ public class AchievementsWindow : Window
     {
         base.Start();
         title.text = Language.GetText(Language.Text.Achievement_Title);
-        List<Achievement.Achievement_Data> achievementsList = Achievements.Achievements.GetAchievements();
+        var achievementsList = Achievements.Achievements.GetAchievements();
 
-        int counter = 0;
-        foreach (Achievement.Achievement_Data achievementData in achievementsList)
+        var counter = 0;
+        foreach (var achievementData in achievementsList)
         {
-            if (PlayerPrefs2.GetAchievementDisplay(achievementData.achievementID, achievementData.defaultDisplay))
-            {
-                GameObject newAchievement = Instantiate(achievementPrefab, content);
-                newAchievement.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, AchievementSeparation * counter);
-                newAchievement.GetComponent<Achievement>().data = achievementData;
-                counter++; 
-            }
+            if (!PlayerPrefs2.GetAchievementDisplay(achievementData.achievementID, achievementData.defaultDisplay))
+                continue;
+            
+            var newAchievement = Instantiate(achievementPrefab, content);
+            newAchievement.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, AchievementSeparation * counter);
+            newAchievement.GetComponent<Achievement>().data = achievementData;
+            counter++;
         }
     }
 }
