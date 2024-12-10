@@ -1,7 +1,9 @@
 ﻿using System;
 using Character;
+using Collections;
 using Enemies;
 using Gui;
+using Items;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -42,6 +44,9 @@ namespace Misc
 
         private void Start()
         {
+            var swordID = Swords.GetData(Swords.SwordName.EspadaMadera).itemID;
+            PlayerPrefs2.SetItemState(swordID, ItemData.ItemState.Acquired);
+            
             // Dialog setup
             continueText.text = Language.GetText(Language.Text.MainMenu_TouchStart);
             _dialog = dialogText.GetComponent<Dialog>();
@@ -61,7 +66,7 @@ namespace Misc
             _dialog.ShowDialog(Language.GetTutorialText(Language.TutorialText.TrainingMaster01));
         }
 
-        private void MoveRange(int range)
+        private static void MoveRange(int range)
         {
             Player.instance.sword.data.range = range;
         }

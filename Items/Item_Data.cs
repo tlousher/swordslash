@@ -52,5 +52,7 @@ namespace Items
                     return null;
             }
         }
+
+        internal bool isSword => itemID.Contains(Swords.ItemType);
     }
 }

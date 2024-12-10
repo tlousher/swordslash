@@ -1,4 +1,5 @@
-﻿using Gui;
+﻿using Collections;
+using Gui;
 using Items;
 using Items.Potions;
 using Misc;
@@ -19,6 +20,12 @@ public static class PlayerPrefs2
     public static void ClearPlayerPrefs()
     {
         PlayerPrefs.DeleteAll();
+    }
+
+    [MenuItem("PlayerPrefs/Add Coins")]
+    public static void Add100Coins()
+    {
+        Coins += 100;
     }
 #endif
 
@@ -273,8 +280,12 @@ public static class PlayerPrefs2
         PlayerPrefs.SetInt(itemID, newState);
     }
 
-    public static void SetItemState(string itemID, ItemData.ItemState newState)
+    public static void SetItemState(string itemID, ItemData.ItemState newState, ItemData data = null)
     {
+        if (data is { isSword: true } && newState == ItemData.ItemState.Acquired)
+        {
+            CollectionPrefs.SetCollectionState(itemID, CollectionPrefs.CollectionState.Discovered);
+        }
         PlayerPrefs.SetInt(itemID, (int)newState);
     }
     #endregion

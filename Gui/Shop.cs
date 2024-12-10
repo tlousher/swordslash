@@ -437,7 +437,7 @@ public class Shop : MonoBehaviour
         switch (itemState)
         {
             case ItemData.ItemState.OnSale:
-                Weapon.WeaponData weapon = ShopFrame.selectedFrame.item.GetComponent<Weapon>().data;
+                var weapon = ShopFrame.selectedFrame.item.GetComponent<Weapon>().data;
                 //Buys the item
                 BuyItem(weapon);
                 //Sets the item to be discovered
@@ -597,7 +597,7 @@ public class Shop : MonoBehaviour
         {
             PlayerPrefs2.Coins -= price;
             UpdateCoinsText();
-            PlayerPrefs2.SetItemState(itemData.itemID, ItemData.ItemState.Acquired);
+            PlayerPrefs2.SetItemState(itemData.itemID, ItemData.ItemState.Acquired, itemData);
             ShopFrame.selectedFrame.UpdateFrame();
             SelectItem(selectedItem);
             GetComponent<AudioSource>().PlayOneShot(purchaseClip);
