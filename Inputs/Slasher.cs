@@ -35,7 +35,7 @@ namespace Inputs
         private Camera _mainCamera;
         private bool _isSlashing;
 
-        public static event Action<SlashDirections> OnSlash = delegate { };
+        public static event Action<Vector2> OnSlash = delegate { };
 
         public enum SlashDirections
         {
@@ -155,45 +155,9 @@ namespace Inputs
                         // Calculates the vector formed from the last start and this finish phase
                         var meanDirection = GetMeanDirection();
                         var direction = VectorToSlashDirections(meanDirection);
-
-                        switch (direction)
-                        {
-                            case SlashDirections.Down:
-                                Debug.Log("Slash is Down");
-                                break;
-                            case SlashDirections.Up:
-                                Debug.Log("Slash is Up");
-                                break;
-                            case SlashDirections.Right:
-                                Debug.Log("Slash is Right");
-                                break;
-                            case SlashDirections.Left:
-                                Debug.Log("Slash is Left");
-                                break;
-                            case SlashDirections.DownRight:
-                                Debug.Log("Slash is DownRight");
-                                break;
-                            case SlashDirections.DownLeft:
-                                Debug.Log("Slash is DownLeft");
-                                break;
-                            case SlashDirections.UpRight:
-                                Debug.Log("Slash is UpRight");
-                                break;
-                            case SlashDirections.UpLeft:
-                                Debug.Log("Slash is UpLeft");
-                                break;
-                            case SlashDirections.Bad:
-                                Debug.Log($"Bad slash {meanDirection}");
-                                break;
-                            case SlashDirections.Joker:
-                                Debug.Log("Slash is Joker");
-                                break;
-                            default:
-                                throw new ArgumentOutOfRangeException();
-                        }
                         
                         // Calls the sender method
-                        SendSlash(direction);
+                        SendSlash(meanDirection);
 
                         // Creates a full HUD slash
                         if (createSlash)
@@ -262,7 +226,7 @@ namespace Inputs
             return mean.normalized;
         }
 
-        private static SlashDirections VectorToSlashDirections(Vector2 normalizedDir)
+        internal static SlashDirections VectorToSlashDirections(Vector2 normalizedDir)
         {
             if (IsDownSlash(normalizedDir))
                 return SlashDirections.Down;
@@ -289,42 +253,42 @@ namespace Inputs
         }
 
         #region Check Slashes
-        private static bool IsUpSlash(Vector2 direction)
+        internal static bool IsUpSlash(Vector2 direction)
         {
             return direction.x is < DirectionThreshold and > -DirectionThreshold && direction.y > DirectionThreshold;
         }
 
-        private static bool IsDownSlash(Vector2 direction)
+        internal static bool IsDownSlash(Vector2 direction)
         {
             return direction.x is < DirectionThreshold and > -DirectionThreshold && direction.y < -DirectionThreshold;
         }
 
-        private static bool IsLeftSlash(Vector2 direction)
+        internal static bool IsLeftSlash(Vector2 direction)
         {
             return direction.y is < DirectionThreshold and > -DirectionThreshold && direction.x < -DirectionThreshold;
         }
 
-        private static bool IsRightSlash(Vector2 direction)
+        internal static bool IsRightSlash(Vector2 direction)
         {
             return direction.y is < DirectionThreshold and > -DirectionThreshold && direction.x > DirectionThreshold;
         }
 
-        private static bool IsUpLeftSlash(Vector2 direction)
+        internal static bool IsUpLeftSlash(Vector2 direction)
         {
             return direction is { x: < -DirectionThreshold, y: > DirectionThreshold };
         }
 
-        private static bool IsUpRightSlash(Vector2 direction)
+        internal static bool IsUpRightSlash(Vector2 direction)
         {
             return direction is { x: > DirectionThreshold, y: > DirectionThreshold };
         }
 
-        private static bool IsDownLeftSlash(Vector2 direction)
+        internal static bool IsDownLeftSlash(Vector2 direction)
         {
             return direction is { x: < -DirectionThreshold, y: < -DirectionThreshold };
         }
 
-        private static bool IsDownRightSlash(Vector2 direction)
+        internal static bool IsDownRightSlash(Vector2 direction)
         {
             return direction is { x: > DirectionThreshold, y: < -DirectionThreshold };
         }
@@ -337,9 +301,8 @@ namespace Inputs
             Destroy(slash, slash.GetComponent<ParticleSystem>().main.duration);
         }
 
-        private static void SendSlash(SlashDirections direction)
+        private static void SendSlash(Vector2 direction)
         {
-            if (direction == SlashDirections.Bad) return;
             // Plays the audio of the slash
             Player.instance.sword.GetComponent<AudioSource>().PlayOneShot(Player.instance.sword.GetAudioClip);
             // Reduce the stamina

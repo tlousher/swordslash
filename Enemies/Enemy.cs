@@ -213,40 +213,83 @@ namespace Enemies
                     // Set the parameter "Damage" + direction to true
                     animator.SetTrigger($"Damage_{direction}");
                 }
-                else
+                else if (parameters.Any(parameter => parameter.nameHash == damageTriggerHash))
                 {
                     animator.SetTrigger(damageTriggerHash);
                 }
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 // ignored
             }
         }
 
-        private void DetectSlash(Slasher.SlashDirections direction)
+        private void DetectSlash(Vector2 rawDirection)
         {
             if (!alive || !isActiveAndEnabled) return;
-            
-            var goodDirection = validDirections.Contains(Slasher.SlashDirections.Joker) || validDirections.Contains(direction);
+
+            var slashDirection = IsValidSlash(rawDirection);
+            var goodDirection = slashDirection != Slasher.SlashDirections.Bad;
 
             if (inRange)
             {
                 var slashParticles = Instantiate(goodDirection ? goodSlashParticles : badSlashParticles, Vector3.zero, Quaternion.identity, slashParticlesParent);
                 
                 slashParticles.transform.localPosition = Vector3.zero;
-                slashParticles.transform.localRotation = Quaternion.Euler(0, 0, Slasher.SlashDirectionToAngle(direction));
+                slashParticles.transform.localRotation = Quaternion.Euler(0, 0, Slasher.SlashDirectionToAngle(slashDirection));
                 Destroy(slashParticles, 1.3f);
             }
 
             if (!inRange || !goodDirection) return;
-            Damage(direction);
+            Damage(slashDirection);
             if (healthPoints >= 1) return;
             //Updates the score and kills count on the gamemaster
             GameManager.instance.score += score;
             GameManager.instance.monstersKilled++;
             //Finally the monster dies
             Die();
+        }
+
+        private Slasher.SlashDirections IsValidSlash(Vector2 slashDirection)
+        {
+            foreach (var validateDirection in validDirections)
+            {
+                switch (validateDirection)
+                {
+                    case Slasher.SlashDirections.Right:
+                        if (Slasher.IsRightSlash(slashDirection)) return Slasher.SlashDirections.Right;
+                        break;
+                    case Slasher.SlashDirections.UpRight:
+                        if (Slasher.IsUpRightSlash(slashDirection)) return Slasher.SlashDirections.UpRight;
+                        break;
+                    case Slasher.SlashDirections.Up:
+                        if (Slasher.IsUpSlash(slashDirection)) return Slasher.SlashDirections.Up;
+                        break;
+                    case Slasher.SlashDirections.UpLeft:
+                        if (Slasher.IsUpLeftSlash(slashDirection)) return Slasher.SlashDirections.UpLeft;
+                        break;
+                    case Slasher.SlashDirections.Left:
+                        if (Slasher.IsLeftSlash(slashDirection)) return Slasher.SlashDirections.Left;
+                        break;
+                    case Slasher.SlashDirections.DownLeft:
+                        if (Slasher.IsDownLeftSlash(slashDirection)) return Slasher.SlashDirections.DownLeft;
+                        break;
+                    case Slasher.SlashDirections.Down:
+                        if (Slasher.IsDownSlash(slashDirection)) return Slasher.SlashDirections.Down;
+                        break;
+                    case Slasher.SlashDirections.DownRight:
+                        if (Slasher.IsDownRightSlash(slashDirection)) return Slasher.SlashDirections.DownRight;
+                        break;
+                    case Slasher.SlashDirections.Bad:
+                        return Slasher.VectorToSlashDirections(slashDirection);
+                    case Slasher.SlashDirections.Joker:
+                        return Slasher.SlashDirections.Joker;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+
+            return Slasher.SlashDirections.Bad;
         }
 
         protected virtual void Explode()
@@ -285,13 +328,9 @@ namespace Enemies
             }
             _lastPosition = transform.position;
             // Plays the die animation
-            try
+            if (animator.parameters.Any(parameter => parameter.nameHash == deadTriggerHash))
             {
                 animator.SetTrigger(deadTriggerHash);
-            }
-            catch (Exception)
-            {
-                // ignored
             }
 
             // Controls the collectibles drop
@@ -303,7 +342,16 @@ namespace Enemies
 
             // Removes the enemy from the scene
             RemoveEnemy(dieClip.length);
-            var newCombo = Instantiate(comboText, transform.position, Quaternion.identity);
+            ShowCombo();
+        }
+
+        private void ShowCombo()
+        {
+            var combo = ComboManager.Combo;
+            if (combo < 2) return;
+            var newCombo = Instantiate(comboText, transform.parent);
+            newCombo.transform.localPosition = transform.localPosition;
+            newCombo.GetComponentInChildren<TMPro.TextMeshPro>().text = $"x{combo}";
             Destroy(newCombo, 0.6f);
         }
 

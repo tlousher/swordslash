@@ -32,7 +32,7 @@ namespace Items.Potions
             {
                 image.sprite = data.sprite;
             }
-            catch (MissingReferenceException missRef)
+            catch (MissingReferenceException)
             {
                 image.sprite = Resources.Load<Sprite>($"Items/Potions/{data.sprite.name}");
             }

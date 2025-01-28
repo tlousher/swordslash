@@ -17,7 +17,9 @@ namespace Gui
         public float timerStart = 2;
 
         public static ComboManager instance;
+        internal static int Combo => instance.counter; 
 
+        // This counter is the Combo
         private int counter;
         private float timer;
         private int achievedCombo;

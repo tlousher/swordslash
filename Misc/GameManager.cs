@@ -111,7 +111,7 @@ namespace Misc
                         break;
                 }
             }
-            catch (NullReferenceException nullRef)
+            catch (NullReferenceException)
             {
                 Debug.Log("DEVELOPER ACCESS\nNo se cargara spawners, background, foreground ni el modo de juego.\nNo se ha definido el nivel en el SceneMaster.levelData");
                 mision.text = "DEBUG";
